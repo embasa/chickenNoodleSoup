@@ -9,8 +9,8 @@ public class Main {
             myList.add(i);
         }
         myList.print();
+        System.out.print("Holly Stephens\n");
         System.out.print(myList.remove(4) + "\n");
-        System.out.print(myList.get(4) + "\n");
         myList.print();
     }
 }

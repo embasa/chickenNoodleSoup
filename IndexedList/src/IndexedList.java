@@ -95,6 +95,7 @@ public class IndexedList implements List<Integer> {
 
         int val = temp.integer;
         temp.integer = tail.integer;// copy integer reference to temp's integer reference.
+/**
         temp = tail;// use temp to hold onto current tail.
         temp.prev = null;// isolate temp from any other node (next is already null).
         tail = tail.prev;// move tail one back to its new position.
@@ -106,14 +107,13 @@ public class IndexedList implements List<Integer> {
             // otherwise make head point to null!
             head = null;
         }
-/**
         if((i/K)*K == size){
             arrayList.remove(arrayList.size()-1);
         }
  **/
         System.out.print("end of func\n");
         size--;
-        return val;
+        return temp.integer;
     }
 
     /**
