@@ -28,6 +28,15 @@ public class IndexedList implements List<Integer> {
     }
 
     @Override
+    public Integer get(int i){
+        Node temp = this.getNode(i);
+        if( temp == null ){
+            return null;
+        }
+        return temp.integer;
+    }
+
+    @Override
     public void add(int i, Integer integer) {
         if( (i<0) || (i>=size)){
             return;
@@ -97,15 +106,6 @@ public class IndexedList implements List<Integer> {
         tail = temp;
 
         return true;
-    }
-
-    @Override
-    public Integer get(int i){
-        Node temp = this.getNode(i);
-        if( temp == null ){
-            return null;
-        }
-        return temp.integer;
     }
 
     @Override
@@ -188,7 +188,6 @@ public class IndexedList implements List<Integer> {
         int arrayListIndex = i/K;//position in arrayList closest to i
         int listCount = i%K;//how many to count from arrayListIndex
         Node temp;
-        System.out.print( "arrayListIndex: " + arrayListIndex + "\n" );
         if((arrayListIndex < arrayList.size()-1) && (K-listCount) < listCount ){
             arrayListIndex++;
             temp = arrayList.get(arrayListIndex);//starting node

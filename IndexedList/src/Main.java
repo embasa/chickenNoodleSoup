@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -5,32 +8,61 @@ import java.util.Random;
  */
 public class Main {
     public static void main(String[] args){
-        IndexedList myList = new IndexedList();
-        System.out.print("Initial value\n");
-        for( int i=0;i<10;i++ ){
-            myList.add(i);
-        }
-
-        myList.print();
-        myList.printArrayList();
-        myList.add(9,666);
-        myList.print();
-        myList.printArrayList();
-        myList.add(4,666);
-        myList.print();
-        myList.printArrayList();
-        myList.add(6,666);
-        myList.print();
-        myList.printArrayList();
+        int N = 10000;
+        /** Make set of N number of to test **/
         /**
         Random rand = new Random( System.currentTimeMillis() );
-        int maxValue = 100;
-        for( int i = maxValue;i >= 0;--i ){
-            int index = rand.nextInt(myList.size());
-            myList.set( index, 666 );
-            myList.print();
-            myList.printArrayList();
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for( int i=0;i<N;i++ ){
+            int value = rand.nextInt();
+            arrayList.add(value);
         }
+
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        for( int i=0;i<N;i++ ){
+            linkedList.add( arrayList.get(i) );
+        }
+
+        IndexedList myList = new IndexedList();
+        System.out.print("Initial value\n");
+        for( int i=0;i<N;i++ ){
+            myList.add( arrayList.get(i) );
+        }
+        int iterations = 10;
+        int count = 0;
+        int sum = 0;
+        System.out.print("indexedList:\n");
+        while( count++<iterations ){
+            sum += testGet(myList);
+        }
+        System.out.print("average time elasped: " + sum/iterations + "\n");
+        count = 0;
+        sum = 0;
+        System.out.print("linkedList:\n");
+        while( count++<iterations ){
+            sum += testGet(linkedList);
+        }
+        System.out.print("average time elasped: " + sum/iterations + "\n");
+        count = 0;
+        sum = 0;
+        System.out.print("arrayList:\n");
+        while( count++<iterations ){
+            sum += testGet(arrayList);
+        }
+        System.out.print("average time elasped: " + sum/iterations + "\n");
          **/
+    }
+
+    public static long testGet(List<Integer> list){
+        Random rand = new Random( System.currentTimeMillis() );
+        int N = 10000;
+        int iterations = 100000;
+        long start = System.currentTimeMillis();
+        for( int i = iterations;i > 0;--i ){
+            int val = rand.nextInt(N);
+            list.get(val);
+        }
+        long elapsed = System.currentTimeMillis() - start;
+        return elapsed;
     }
 }
