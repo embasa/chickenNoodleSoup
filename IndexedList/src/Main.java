@@ -7,24 +7,24 @@ public class Main {
     public static void main(String[] args){
         IndexedList myList = new IndexedList();
         System.out.print("Initial value\n");
-        for(int i=0;i<30;i++){
+        for( int i=0;i<10;i++ ){
             myList.add(i);
-        }
-
-        Random rand = new Random( System.currentTimeMillis() );
-        int maxValue = 30;
-        for( int i = 29;i >= 0;--i ){
-            myList.print();
-            myList.printArrayList();
-            Integer val = myList.remove(rand.nextInt(maxValue));
-            if( val != null ){
-               maxValue--;
-            }
-            System.out.print( "value removed: " + val + "\n" );
         }
 
         myList.print();
         myList.printArrayList();
+        myList.add(9,666);
+        myList.print();
+        myList.printArrayList();
+        //**
+        Random rand = new Random( System.currentTimeMillis() );
+        int maxValue = 100;
+        for( int i = maxValue;i >= 0;--i ){
+            int index = rand.nextInt(myList.size());
+            myList.set( index, 666 );
+            myList.print();
+            myList.printArrayList();
+        }
         // **/
     }
 }

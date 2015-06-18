@@ -11,7 +11,7 @@ public class IndexedList implements List<Integer> {
     private Node head;
     private Node tail;
     private int size = 0;
-    private static final int K = 3;
+    private static final int K = 5;
 
     protected class Node{
         protected Node(){
@@ -29,7 +29,45 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public void add(int i, Integer integer) {
+        if( (i<0) || (i>=size)){
+            return;
+        }
 
+        /** prepare Node **/
+        Node newNode = new Node();// make reference to new Node
+        newNode.integer = integer;// I don't know how to avoid warning
+        Node currentNode = this.getNode(i);// get a reference to Node in that ith position
+        if(currentNode == null){// check for now in case there is null in linkedList
+            return;
+        }
+
+        /** insert new Node to next of current Node **/
+        newNode.next = currentNode;// connect new Node's next reference to current Node
+        newNode.prev = currentNode.prev;// connect Node's prev to current Node's prev
+        currentNode.prev = newNode;// connect current Node's prev to new Node
+        if(newNode.prev != null){
+            newNode.prev.next = newNode;// if not null attach previous node to new Node
+        }else{
+            head = newNode;// if new Node's prev is null, then it is new head
+        }
+
+        /** adjust arrayList values accordingly **/
+        int index = i/K + 1;
+        if ( i % K == 0 ) {
+            index--;
+        }
+
+        for( ; index<arrayList.size() ; index++ ){
+            arrayList.set( index, arrayList.get(index).prev );// adjust all pointers 1 back
+        }
+
+
+        /** add tail to end of arrayList **/
+        if ( size%K == 0 ){// if size%K == 0, then must add a pointer
+            arrayList.add( tail );
+        }
+
+        size++;
     }
 
     @Override
@@ -69,64 +107,6 @@ public class IndexedList implements List<Integer> {
         }
         return temp.integer;
     }
-
-    private Node getNode(int i){
-        if( (i<0) || (i>= size) ){
-            return null;
-        }
-        int arrayListIndex = i/K;//position in arrayList closest to i
-        int listCount = i%K;//how many to count from arrayListIndex
-        Node temp;
-        System.out.print( "arrayListIndex: " + arrayListIndex + "\n" );
-        if(arrayListIndex >= 0 && arrayListIndex<arrayList.size()) {
-            temp = arrayList.get(arrayListIndex);//starting node
-        }else{
-            return null;
-        }
-        for( int j=0; j<listCount ; j++ ){
-            temp = temp.next;
-        }
-        return temp;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-
-    @Override
-    public ListIterator<Integer> listIterator() {
-        return null;
-    }
-
-    public void print(){
-
-        System.out.print( "========================================\n" );
-        Node temp = head;
-        System.out.printf("%5s  %7s  %s\n","index","integer","array index");
-        int count = 0;
-        while( temp != null ){
-            System.out.printf( "%5d  %7d  ", count ,temp.integer );
-            System.out.print("temp: " + temp + " ");
-            if( count%K == 0 ){
-                System.out.print( (count/K) + "\n" );
-            }else {
-                System.out.println();
-            }
-            count++;
-            temp=temp.next;
-        }
-        System.out.print( "========================================\n" );
-    }
-
-    public void printArrayList(){
-        System.out.print( "----------------------------------------\n" );
-        for( int i = 0 ; i < arrayList.size() ; ++i ){
-            System.out.print( "AL[" + i + "]: " + arrayList.get(i) + "\n" );
-        }
-        System.out.print( "----------------------------------------\n" );
-    }
-
 
     @Override
     public Integer remove(int i) {
@@ -191,7 +171,60 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public Integer set(int i, Integer integer) {
-        return null;
+        if( (i<0) || (i>=size) ){
+            return null;
+        }
+        Node temp = getNode(i);
+        Integer previousInteger = temp.integer;
+        temp.integer = integer;
+        return previousInteger;
+    }
+
+    private Node getNode(int i){
+        if( (i<0) || (i>= size) ){
+            return null;
+        }
+        int arrayListIndex = i/K;//position in arrayList closest to i
+        int listCount = i%K;//how many to count from arrayListIndex
+        Node temp;
+        System.out.print( "arrayListIndex: " + arrayListIndex + "\n" );
+        if(arrayListIndex >= 0 && arrayListIndex<arrayList.size()) {
+            temp = arrayList.get(arrayListIndex);//starting node
+        }else{
+            return null;
+        }
+        for( int j=0; j<listCount ; j++ ){
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    public void print(){
+
+        System.out.print( "========================================\n" );
+        Node temp = head;
+        System.out.printf("%5s  %7s  %s\n","index","integer","array index");
+        int count = 0;
+        while( temp != null ){
+            System.out.printf( "%5d  %7d  ", count ,temp.integer );
+            System.out.print("temp: " + temp + " ");
+            if( count%K == 0 ){
+                System.out.print( (count/K) + "\n" );
+            }else {
+                System.out.println();
+            }
+            count++;
+            temp=temp.next;
+        }
+        System.out.print( "========================================\n" );
+    }
+
+    public void printArrayList(){
+        System.out.print( "----------------------------------------\n" );
+        for( int i = 0 ; i < arrayList.size() ; ++i ){
+            System.out.print( "AL[" + i + "]: " + arrayList.get(i) + "\n" );
+        }
+        System.out.print( "----------------------------------------\n" );
     }
 
     @Override
@@ -221,7 +254,7 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -260,7 +293,8 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public void clear(){
-
+        head = tail = null;
+        arrayList.clear();;
     }
 
     @Override
@@ -277,4 +311,15 @@ public class IndexedList implements List<Integer> {
     public boolean addAll(Collection<? extends Integer> collection) {
         return false;
     }
+
+    @Override
+    public boolean remove(Object o) {
+        return false;
+    }
+
+    @Override
+    public ListIterator<Integer> listIterator() {
+        return null;
+    }
+
 }
