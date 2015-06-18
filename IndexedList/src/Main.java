@@ -16,7 +16,13 @@ public class Main {
         myList.add(9,666);
         myList.print();
         myList.printArrayList();
-        //**
+        myList.add(4,666);
+        myList.print();
+        myList.printArrayList();
+        myList.add(6,666);
+        myList.print();
+        myList.printArrayList();
+        /**
         Random rand = new Random( System.currentTimeMillis() );
         int maxValue = 100;
         for( int i = maxValue;i >= 0;--i ){
@@ -25,6 +31,6 @@ public class Main {
             myList.print();
             myList.printArrayList();
         }
-        // **/
+         **/
     }
 }

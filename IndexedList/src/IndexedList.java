@@ -180,6 +180,7 @@ public class IndexedList implements List<Integer> {
         return previousInteger;
     }
 
+    // This is the search algorithm for finding the ith Node
     private Node getNode(int i){
         if( (i<0) || (i>= size) ){
             return null;
@@ -188,13 +189,17 @@ public class IndexedList implements List<Integer> {
         int listCount = i%K;//how many to count from arrayListIndex
         Node temp;
         System.out.print( "arrayListIndex: " + arrayListIndex + "\n" );
-        if(arrayListIndex >= 0 && arrayListIndex<arrayList.size()) {
+        if((arrayListIndex < arrayList.size()-1) && (K-listCount) < listCount ){
+            arrayListIndex++;
             temp = arrayList.get(arrayListIndex);//starting node
-        }else{
-            return null;
-        }
-        for( int j=0; j<listCount ; j++ ){
-            temp = temp.next;
+            for( int j=0; j<K-listCount ; j++ ){
+                temp = temp.prev;
+            }
+        }else {
+            temp = arrayList.get(arrayListIndex);//starting node
+            for ( int j=0;j < listCount; j++ ) {
+                temp = temp.next;
+            }
         }
         return temp;
     }
