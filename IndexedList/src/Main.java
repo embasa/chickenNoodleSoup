@@ -4,13 +4,21 @@
 public class Main {
     public static void main(String[] args){
         IndexedList myList = new IndexedList();
-        System.out.print("chicken NOODLE SOUP\n");
-        for(int i=0;i<10;i++){
+        System.out.print("Initial value\n");
+        for(int i=0;i<3;i++){
             myList.add(i);
         }
+
         myList.print();
-        System.out.print("Holly Stephens\n");
-        System.out.print(myList.remove(4) + "\n");
+        myList.printArrayList();
+        System.out.print( "value removed: " + myList.remove(0) + "\n" );
         myList.print();
+        myList.printArrayList();
+        System.out.print( "value removed: " + myList.remove(0) + "\n" );
+        myList.print();
+        myList.printArrayList();
+        System.out.print( "value removed: " + myList.remove(0) + "\n" );
+        myList.print();
+        myList.printArrayList();
     }
 }

@@ -1,9 +1,17 @@
+import javax.sql.rowset.spi.SyncFactory;
 import java.util.*;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by computerito on 6/12/15.
  */
 public class IndexedList implements List<Integer> {
+
+    private ArrayList<Node> arrayList;
+    private Node head;
+    private Node tail;
+    private int size = 0;
+    private static final int K = 3;
 
     protected class Node{
         protected Node(){
@@ -15,11 +23,6 @@ public class IndexedList implements List<Integer> {
         int index;
     }
 
-    private ArrayList<Node> arrayList;
-    private Node head;
-    private Node tail;
-    private int size = 0;
-    private static final int K = 3;
     public IndexedList(){
         head = tail = null;
         arrayList = new ArrayList<>();
@@ -27,7 +30,6 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public void add(int i, Integer integer) {
-
     }
 
     @Override
@@ -65,100 +67,25 @@ public class IndexedList implements List<Integer> {
     @Override
     public Integer get(int i){
         Node temp = this.getNode(i);
-        if(temp == null){
+        if( temp == null ){
             return null;
         }
         return temp.integer;
     }
 
     private Node getNode(int i){
-        if((i<0)|| (i>= size)){
+        if( (i<0) || (i>= size) ){
             return null;
         }
         int arrayListIndex = i/K;//position in arrayList closest to i
         int listCount = i%K;//how many to count from arrayListIndex
         Node temp = arrayList.get(arrayListIndex);//starting node
 
-        for (int j=0;j<listCount;j++){
+        for( int j=0; j<listCount ; j++ ){
             temp = temp.next;
         }
         return temp;
     }
-
-    @Override
-    public Integer remove(int i) {
-        Node temp = getNode(i);
-        if(temp == null){
-            return null;
-        }
-        System.out.printf("%5d  %7d  \n",temp.index,temp.integer);
-
-        int val = temp.integer;
-        temp.integer = tail.integer;// copy integer reference to temp's integer reference.
-/**
-        temp = tail;// use temp to hold onto current tail.
-        temp.prev = null;// isolate temp from any other node (next is already null).
-        tail = tail.prev;// move tail one back to its new position.
-
-        // if tail is not null..
-        if(tail != null){
-            tail.next = null;// disconnect tail from next.
-        }else {
-            // otherwise make head point to null!
-            head = null;
-        }
-        if((i/K)*K == size){
-            arrayList.remove(arrayList.size()-1);
-        }
- **/
-        System.out.print("end of func\n");
-        size--;
-        return temp.integer;
-    }
-
-    /**
-    @Override
-    public Integer remove(int i) {
-
-        if((i<0)|| (i>= size)){
-            return null;
-        }
-        int arrayListIndex = i/K;//position in arrayList closest to i
-        int listCount = i%K;//how many to count from arrayListIndex
-
-        Node temp = arrayList.get(arrayListIndex);//starting node
-
-        for (int j=0;j<listCount;j++){
-            temp = temp.next;
-        }
-        //if listCount is zero, then remove last position from arrayList
-        if(arrayListIndex*K == size ){
-            arrayList.remove(size-1);//not to be confused with my remove.
-        }else if(listCount == 0) {//removing an arrayListPosition
-            temp.integer = tail.integer;
-        }
-        size--;
-
-        if(temp == head){
-            if( head == tail ){
-                head = tail = null;
-            }else {
-                head = head.next;
-                head.prev = null;
-                temp.next = null;
-            }
-        }else if( tail == temp ){
-            tail = tail.prev;
-            tail.next = null;
-            temp.prev = null;
-        }else{
-            temp.prev.next = temp.next;
-            temp.next.prev = temp.prev;
-            temp.next = temp.prev = null;
-        }
-        return temp.integer;
-    }
-    **/
 
     @Override
     public boolean remove(Object o) {
@@ -174,15 +101,109 @@ public class IndexedList implements List<Integer> {
         Node temp = head;
         System.out.print((head != null) + "\n");
         System.out.printf("%5s  %7s  %s\n","index","integer","array index");
-        while(temp != null){
-            System.out.printf("%5d  %7d  ",temp.index,temp.integer);
-            if(temp.integer%K == 0){
-                System.out.print((temp.integer/K) + "\n");
+        int count = 0;
+        while( temp != null ){
+            System.out.printf( "%5d  %7d  ", temp.index ,temp.integer );
+            System.out.print("temp: " + temp + " ");
+            if( count%K == 0 ){
+                System.out.print( (count/K) + "\n" );
             }else {
                 System.out.println();
             }
+            count++;
             temp=temp.next;
         }
+    }
+
+    public void printArrayList(){
+        System.out.print( "size: " + arrayList.size() + "\n" );
+        System.out.print("HEAD: " + head + "\n");
+        for( int i = 0 ; i < arrayList.size() ; ++i ){
+            System.out.print( arrayList.get(i) + "\n" );
+        }
+    }
+
+    public void testShit(){
+
+    }
+
+
+    @Override
+    public Integer remove(int i) {
+        /** Get a reference to Node that needs to be removed **/
+        Node temp = getNode(i);// used arrayList to help find needed Node faster
+        if ( temp == null || isEmpty() ) {// if temp is null or list is empty return null
+            return null;// leave leave leave
+        }
+        System.out.print("temp: " + temp + "\n");
+        System.out.print("AL.g(0): " + arrayList.get(0) + "\n");
+
+        /** This is where we adjust arrayList after removal **/
+        int index = i/K;
+
+        if( i%K != 0 ){
+            index++;
+        }
+
+        // minus 1 because we will deal with last position
+        for( ; index < arrayList.size() ;index++ ){
+            System.out.print("IN 4 loop\n");
+            arrayList.set( index , arrayList.get(index).next );// the value at index will now point to the next pointer
+        }
+
+
+
+        if( ( size-1 )%K == 0 ){// if last position added has a node pointer remove
+            // the first one has to be treated differently,
+            // most
+            arrayList.remove( arrayList.size()-1 );// now remove last position of arrayList
+
+            System.out.print("i=0: " + head + "\n");
+            /**
+            if(( i == 0 )){// i=0 is a special case. can't delete
+
+                System.out.print("i=0: " + head + "\n");
+                arrayList.set(arrayList.size() - 1, temp.next);// make last position of arrayList null
+            }else {
+                System.out.print(": " + head + "\n");
+                arrayList.set(arrayList.size() - 1, arrayList.get(arrayList.size()-1).next);// make last position of arrayList null
+
+                arrayList.remove( arrayList.size()-1 );// now remove last position of arrayList
+            }
+             */
+        }
+
+        //System.out.print( "temp: " + temp + " t.prev: " + temp.prev + " t.next: " + temp.next + "\n");
+        //System.out.print( "head: " + head + " h.prev: " + head.prev + " h.next: " + head.next + "\n");
+        //System.out.print( "tail: " + tail + " T.prev: " + tail.prev + " T.next: " + tail.next + "\n");
+
+        /** This code is for dealing with Node removal **/
+        if( temp != head ){// #2 or #4
+            if( temp != tail ){// #4
+                // here we do the normal swap
+                System.out.print("condition #4\n");
+                temp.prev.next = temp.next;// connect prev node to next node
+                temp.next.prev = temp.prev;// connect next node to prev node
+                temp.next = temp.prev = null;// now disconnect temp from the rest of the list
+            }else{// #2
+                System.out.print("condition #2\n");
+                tail = tail.prev;// move tail to new tail
+                tail.next = null;// if temp is not null and is not the head, then we know new tail is a valid Node
+                temp.prev = null;// detach temp from linked list
+            }
+        }else {// #1 or #3
+            if( head != tail ){// #3
+                System.out.print("condition #3\n");
+                head = head.next;// move head to new head.
+                head.prev = null;// detach new head from temp Node.
+                temp.next = null;// detach temp from the list.
+            }else {// #1
+                System.out.print("condition #1\n");
+                head = tail = null;// empty list
+            }
+        }
+        /** This code is for adjusting arrayList **/
+        return temp.integer;
     }
 
     @Override
@@ -273,5 +294,4 @@ public class IndexedList implements List<Integer> {
     public boolean addAll(Collection<? extends Integer> collection) {
         return false;
     }
-
 }
