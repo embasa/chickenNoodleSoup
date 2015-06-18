@@ -1,0 +1,27 @@
+condition #1:
+HEAD->|    |->0
+   0<-|    |<-TAIL
+         ^
+         |
+         temp
+
+condition #2:
+HEAD->|    |->|    |->0
+   0<-|    |<-|    |<-TAIL
+                ^
+                |
+                temp
+
+condition #3:
+HEAD->|    |->|    |->0
+   0<-|    |<-|    |<-TAIL
+         ^
+         |
+         temp
+
+condition #4:
+HEAD->|    |->|    |->|    |->0
+   0<-|    |<-|    |<-|    |<-TAIL
+                ^
+                |
+                temp

@@ -20,7 +20,6 @@ public class IndexedList implements List<Integer> {
         Node next;
         Node prev;
         Integer integer;
-        int index;
     }
 
     public IndexedList(){
@@ -30,21 +29,20 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public void add(int i, Integer integer) {
+
     }
 
     @Override
     public boolean add(Integer integer) {
         /** prepare Node **/
-        System.out.print("attempting to add " + integer +" \n");
         Node temp = new Node();
-        temp.index = size;//current size is the best index
         temp.integer = integer;// I don't know how to avoid warning
         /** insert node where appropriate **/
 
         if(size%K == 0){
-            System.out.print("added to arrayList " + size + "\n");
             arrayList.add(temp);
         }
+
         size++;
 
         if(head == null){
@@ -53,7 +51,6 @@ public class IndexedList implements List<Integer> {
             System.out.print( "successfully added integer [" + temp.integer + "]\n");
             return true;
         }
-        System.out.print(tail.integer+ "\n");
 
         //if head is not null then tail.prev is not null
         System.out.print( "successfully added integer [" + temp.integer + "]\n");
@@ -79,8 +76,13 @@ public class IndexedList implements List<Integer> {
         }
         int arrayListIndex = i/K;//position in arrayList closest to i
         int listCount = i%K;//how many to count from arrayListIndex
-        Node temp = arrayList.get(arrayListIndex);//starting node
-
+        Node temp;
+        System.out.print( "arrayListIndex: " + arrayListIndex + "\n" );
+        if(arrayListIndex >= 0 && arrayListIndex<arrayList.size()) {
+            temp = arrayList.get(arrayListIndex);//starting node
+        }else{
+            return null;
+        }
         for( int j=0; j<listCount ; j++ ){
             temp = temp.next;
         }
@@ -98,12 +100,13 @@ public class IndexedList implements List<Integer> {
     }
 
     public void print(){
+
+        System.out.print( "========================================\n" );
         Node temp = head;
-        System.out.print((head != null) + "\n");
         System.out.printf("%5s  %7s  %s\n","index","integer","array index");
         int count = 0;
         while( temp != null ){
-            System.out.printf( "%5d  %7d  ", temp.index ,temp.integer );
+            System.out.printf( "%5d  %7d  ", count ,temp.integer );
             System.out.print("temp: " + temp + " ");
             if( count%K == 0 ){
                 System.out.print( (count/K) + "\n" );
@@ -113,30 +116,29 @@ public class IndexedList implements List<Integer> {
             count++;
             temp=temp.next;
         }
+        System.out.print( "========================================\n" );
     }
 
     public void printArrayList(){
-        System.out.print( "size: " + arrayList.size() + "\n" );
-        System.out.print("HEAD: " + head + "\n");
+        System.out.print( "----------------------------------------\n" );
         for( int i = 0 ; i < arrayList.size() ; ++i ){
-            System.out.print( arrayList.get(i) + "\n" );
+            System.out.print( "AL[" + i + "]: " + arrayList.get(i) + "\n" );
         }
-    }
-
-    public void testShit(){
-
+        System.out.print( "----------------------------------------\n" );
     }
 
 
     @Override
     public Integer remove(int i) {
+        System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
+        System.out.print( "begin removing index position " + i + "\n" );
         /** Get a reference to Node that needs to be removed **/
         Node temp = getNode(i);// used arrayList to help find needed Node faster
+        System.out.print("reference of temp: " + temp + "\n");
         if ( temp == null || isEmpty() ) {// if temp is null or list is empty return null
             return null;// leave leave leave
         }
-        System.out.print("temp: " + temp + "\n");
-        System.out.print("AL.g(0): " + arrayList.get(0) + "\n");
+
 
         /** This is where we adjust arrayList after removal **/
         int index = i/K;
@@ -152,30 +154,10 @@ public class IndexedList implements List<Integer> {
         }
 
 
-
-        if( ( size-1 )%K == 0 ){// if last position added has a node pointer remove
-            // the first one has to be treated differently,
-            // most
-            arrayList.remove( arrayList.size()-1 );// now remove last position of arrayList
-
-            System.out.print("i=0: " + head + "\n");
-            /**
-            if(( i == 0 )){// i=0 is a special case. can't delete
-
-                System.out.print("i=0: " + head + "\n");
-                arrayList.set(arrayList.size() - 1, temp.next);// make last position of arrayList null
-            }else {
-                System.out.print(": " + head + "\n");
-                arrayList.set(arrayList.size() - 1, arrayList.get(arrayList.size()-1).next);// make last position of arrayList null
-
-                arrayList.remove( arrayList.size()-1 );// now remove last position of arrayList
-            }
-             */
+        // if the last position is a arrayList reference. remove last one.
+        if( ( --size )%K == 0 ) {// if last position added has a node pointer remove
+            arrayList.remove(arrayList.size() - 1);// now remove last position of arrayList
         }
-
-        //System.out.print( "temp: " + temp + " t.prev: " + temp.prev + " t.next: " + temp.next + "\n");
-        //System.out.print( "head: " + head + " h.prev: " + head.prev + " h.next: " + head.next + "\n");
-        //System.out.print( "tail: " + tail + " T.prev: " + tail.prev + " T.next: " + tail.next + "\n");
 
         /** This code is for dealing with Node removal **/
         if( temp != head ){// #2 or #4
@@ -202,6 +184,7 @@ public class IndexedList implements List<Integer> {
                 head = tail = null;// empty list
             }
         }
+        System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
         /** This code is for adjusting arrayList **/
         return temp.integer;
     }
