@@ -66,7 +66,6 @@ public class Main {
             int val = rand.nextInt(N);
             list.get(val);
         }
-        long elapsed = System.currentTimeMillis() - start;
-        return elapsed;
+        return System.currentTimeMillis() - start;
     }
 }

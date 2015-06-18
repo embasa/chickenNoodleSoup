@@ -193,9 +193,6 @@ public class IndexedList implements List<Integer> {
 
     // This is the search algorithm for finding the ith Node
     private Node getNode(int i){
-       // if( (i<0) || (i>= size) ){
-       //     return null;
-       // }
 
         int arrayListIndex = i/K;//position in arrayList closest to i
         int listCount = i%K;//how many to count from arrayListIndex
