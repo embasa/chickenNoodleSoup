@@ -8,12 +8,12 @@ import java.util.Random;
  */
 public class Main {
     public static void main(String[] args){
-        int N = 1000000;
+        int N = 100000;
 
         /** Make set of N number of to test **/
         Random rand = new Random( System.currentTimeMillis() );
         long start = System.currentTimeMillis();
-        IndexedList arrayList = new IndexedList();
+        LinkedList<Integer> arrayList = new LinkedList<>();
         arrayList.add(10);
         for( int i=0;i<N;i++ ){
             int value = rand.nextInt(arrayList.size());

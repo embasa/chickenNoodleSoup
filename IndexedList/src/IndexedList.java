@@ -1,6 +1,4 @@
-import javax.sql.rowset.spi.SyncFactory;
 import java.util.*;
-import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by computerito on 6/12/15.
@@ -10,12 +8,13 @@ public class IndexedList implements List<Integer> {
     private ArrayList<Node> arrayList;
     private Node head;
     private Node tail;
-    private int size = 0;
+    private int size;
     private static final int K = 100;
 
     protected class Node{
         protected Node(){
-
+            next = prev = null;
+            integer = null;
         }
         Node next;
         Node prev;
@@ -23,16 +22,17 @@ public class IndexedList implements List<Integer> {
     }
 
     public IndexedList(){
+        size = 0;
         head = tail = null;
         arrayList = new ArrayList<>();
     }
 
     @Override
     public Integer get(int i){
-        Node temp = this.getNode(i);
-        if( temp == null ){
+        if( (i<0) || (i>= size) ){
             return null;
         }
+        Node temp = this.getNode(i);
         return temp.integer;
     }
 
@@ -44,11 +44,11 @@ public class IndexedList implements List<Integer> {
 
         /** prepare Node **/
         Node newNode = new Node();// make reference to new Node
-        newNode.integer = integer;// I don't know how to avoid warning
+        newNode.integer = integer;// instance is only for passing value through, java auto unboxes
         Node currentNode = this.getNode(i);// get a reference to Node in that ith position
-        if(currentNode == null){// check for now in case there is null in linkedList
-            return;
-        }
+//        if(currentNode == null){// check for now in case there is null in linkedList
+//            return;
+//        }
 
         /** insert new Node to next of current Node **/
         newNode.next = currentNode;// connect new Node's next reference to current Node
@@ -86,6 +86,7 @@ public class IndexedList implements List<Integer> {
         temp.integer = integer;// I don't know how to avoid warning
         /** insert node where appropriate **/
 
+        System.out.print("integer: " + integer + " Node integer: " + temp.integer );
         if(size%K == 0){
             arrayList.add(temp);
         }
@@ -110,14 +111,17 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public Integer remove(int i) {
+        if( (i<0) || (i>=size)){
+            return null;
+        }
         //System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
         //System.out.print( "begin removing index position " + i + "\n" );
         /** Get a reference to Node that needs to be removed **/
-        Node temp = getNode(i);// used arrayList to help find needed Node faster
+        Node temp = this.getNode(i);// used arrayList to help find needed Node faster
         //System.out.print("reference of temp: " + temp + "\n");
-        if ( temp == null || isEmpty() ) {// if temp is null or list is empty return null
-            return null;// leave leave leave
-        }
+        //if ( temp == null || isEmpty() ) {// if temp is null or list is empty return null
+        //    return null;// leave leave leave
+        //}
 
 
         /** This is where we adjust arrayList after removal **/
@@ -171,27 +175,37 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public Integer set(int i, Integer integer) {
-        if( (i<0) || (i>=size) ){
+        if( (i<0) || (i>=size)){
             return null;
         }
-        Node temp = getNode(i);
+
+        Node temp = this.getNode(i);
+
+        //if( temp == null ){
+        //    return null;
+        //}
+
         Integer previousInteger = temp.integer;
         temp.integer = integer;
+
         return previousInteger;
     }
 
     // This is the search algorithm for finding the ith Node
     private Node getNode(int i){
-        if( (i<0) || (i>= size) ){
-            return null;
-        }
+       // if( (i<0) || (i>= size) ){
+       //     return null;
+       // }
+
         int arrayListIndex = i/K;//position in arrayList closest to i
         int listCount = i%K;//how many to count from arrayListIndex
         Node temp;
+
+        //only if arrayListIndex isn't last does it matter to check about going backwards
         if((arrayListIndex < arrayList.size()-1) && (K-listCount) < listCount ){
             arrayListIndex++;
             temp = arrayList.get(arrayListIndex);//starting node
-            for( int j=0; j<K-listCount ; j++ ){
+            for( int j=0; j < K-listCount ; j++ ){
                 temp = temp.prev;
             }
         }else {
@@ -200,6 +214,7 @@ public class IndexedList implements List<Integer> {
                 temp = temp.next;
             }
         }
+
         return temp;
     }
 
