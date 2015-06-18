@@ -11,7 +11,7 @@ public class IndexedList implements List<Integer> {
     private Node head;
     private Node tail;
     private int size = 0;
-    private static final int K = 5;
+    private static final int K = 100;
 
     protected class Node{
         protected Node(){
@@ -95,12 +95,12 @@ public class IndexedList implements List<Integer> {
         if(head == null){
             //if head empty then tail and head point to same reference
             tail = head = temp;
-            System.out.print( "successfully added integer [" + temp.integer + "]\n");
+            //System.out.print( "successfully added integer [" + temp.integer + "]\n");
             return true;
         }
 
         //if head is not null then tail.prev is not null
-        System.out.print( "successfully added integer [" + temp.integer + "]\n");
+        //System.out.print( "successfully added integer [" + temp.integer + "]\n");
         tail.next = temp;
         temp.prev = tail;
         tail = temp;
@@ -110,11 +110,11 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public Integer remove(int i) {
-        System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
-        System.out.print( "begin removing index position " + i + "\n" );
+        //System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
+        //System.out.print( "begin removing index position " + i + "\n" );
         /** Get a reference to Node that needs to be removed **/
         Node temp = getNode(i);// used arrayList to help find needed Node faster
-        System.out.print("reference of temp: " + temp + "\n");
+        //System.out.print("reference of temp: " + temp + "\n");
         if ( temp == null || isEmpty() ) {// if temp is null or list is empty return null
             return null;// leave leave leave
         }
@@ -129,7 +129,7 @@ public class IndexedList implements List<Integer> {
 
         // minus 1 because we will deal with last position
         for( ; index < arrayList.size() ;index++ ){
-            System.out.print("IN 4 loop\n");
+         //   System.out.print("IN 4 loop\n");
             arrayList.set( index , arrayList.get(index).next );// the value at index will now point to the next pointer
         }
 
@@ -143,28 +143,28 @@ public class IndexedList implements List<Integer> {
         if( temp != head ){// #2 or #4
             if( temp != tail ){// #4
                 // here we do the normal swap
-                System.out.print("condition #4\n");
+          //      System.out.print("condition #4\n");
                 temp.prev.next = temp.next;// connect prev node to next node
                 temp.next.prev = temp.prev;// connect next node to prev node
                 temp.next = temp.prev = null;// now disconnect temp from the rest of the list
             }else{// #2
-                System.out.print("condition #2\n");
+           //     System.out.print("condition #2\n");
                 tail = tail.prev;// move tail to new tail
                 tail.next = null;// if temp is not null and is not the head, then we know new tail is a valid Node
                 temp.prev = null;// detach temp from linked list
             }
         }else {// #1 or #3
             if( head != tail ){// #3
-                System.out.print("condition #3\n");
+            //    System.out.print("condition #3\n");
                 head = head.next;// move head to new head.
                 head.prev = null;// detach new head from temp Node.
                 temp.next = null;// detach temp from the list.
             }else {// #1
-                System.out.print("condition #1\n");
+             //   System.out.print("condition #1\n");
                 head = tail = null;// empty list
             }
         }
-        System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
+        //System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
         /** This code is for adjusting arrayList **/
         return temp.integer;
     }

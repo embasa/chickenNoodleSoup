@@ -8,16 +8,20 @@ import java.util.Random;
  */
 public class Main {
     public static void main(String[] args){
-        int N = 10000;
-        /** Make set of N number of to test **/
-        /**
-        Random rand = new Random( System.currentTimeMillis() );
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        for( int i=0;i<N;i++ ){
-            int value = rand.nextInt();
-            arrayList.add(value);
-        }
+        int N = 1000000;
 
+        /** Make set of N number of to test **/
+        Random rand = new Random( System.currentTimeMillis() );
+        long start = System.currentTimeMillis();
+        IndexedList arrayList = new IndexedList();
+        arrayList.add(10);
+        for( int i=0;i<N;i++ ){
+            int value = rand.nextInt(arrayList.size());
+            arrayList.add(value,rand.nextInt());
+        }
+        long elapsed = System.currentTimeMillis() - start;
+        System.out.print("elapsed: " + elapsed + "\n");
+        /**
         LinkedList<Integer> linkedList = new LinkedList<>();
         for( int i=0;i<N;i++ ){
             linkedList.add( arrayList.get(i) );
@@ -56,7 +60,7 @@ public class Main {
     public static long testGet(List<Integer> list){
         Random rand = new Random( System.currentTimeMillis() );
         int N = 10000;
-        int iterations = 100000;
+        int iterations = 1000000;
         long start = System.currentTimeMillis();
         for( int i = iterations;i > 0;--i ){
             int val = rand.nextInt(N);
