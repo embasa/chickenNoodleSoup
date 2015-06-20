@@ -267,7 +267,7 @@ public class Searcher
      */
     public static void main(String args[])
     {
-        ArrayList<Long> times = new ArrayList<Long>();  // execution times
+        ArrayList<Long> times = new ArrayList<>();  // execution times
                     
         if (args.length < 2) {
             System.out.println("Usage: java Searcher <file> <speed> <iterations>");

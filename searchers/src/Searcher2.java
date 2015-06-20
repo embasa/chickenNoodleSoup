@@ -276,7 +276,7 @@ public class Searcher2
     /**
      * Main
      * @param args Arg 0: input file path; 
-     *             Arg 1: processor speed in GHz
+     *             Arg 1: processor speed in GHz    @Override
      *             Arg 2: (optional) number of iterations (default 1)
      */
     public static void main(String args[])
@@ -341,7 +341,7 @@ public class Searcher2
         System.out.printf("\nProcessor speed: %3.1f GHz\n\n", speed);
         System.out.printf("Mininum time: %3d   ms, performance %6.1f\n", 
                           minTime, minTime*speed);
-        System.out.printf("Maximum time: %3d   ms, performance %6.1f\n", 
+        System.out.printf("Maximum time: %3d   ms, performance %6.1f\n",
                           maxTime, maxTime*speed);
         System.out.printf("Median  time: %5.1f ms, performance %6.1f\n", 
                           median, median*speed);

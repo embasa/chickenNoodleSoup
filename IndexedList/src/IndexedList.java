@@ -32,8 +32,7 @@ public class IndexedList implements List<Integer> {
         if( (i<0) || (i>= size) ){
             return null;
         }
-        Node temp = this.getNode(i);
-        return temp.integer;
+        return this.getNode(i).integer;
     }
 
     @Override
@@ -46,9 +45,6 @@ public class IndexedList implements List<Integer> {
         Node newNode = new Node();// make reference to new Node
         newNode.integer = integer;// instance is only for passing value through, java auto unboxes
         Node currentNode = this.getNode(i);// get a reference to Node in that ith position
-//        if(currentNode == null){// check for now in case there is null in linkedList
-//            return;
-//        }
 
         /** insert new Node to next of current Node **/
         newNode.next = currentNode;// connect new Node's next reference to current Node
@@ -82,11 +78,13 @@ public class IndexedList implements List<Integer> {
     @Override
     public boolean add(Integer integer) {
         /** prepare Node **/
+
         Node temp = new Node();
         temp.integer = integer;// I don't know how to avoid warning
+
         /** insert node where appropriate **/
 
-        System.out.print("integer: " + integer + " Node integer: " + temp.integer );
+        //System.out.print("integer: " + integer + " Node integer: " + temp.integer );
         if(size%K == 0){
             arrayList.add(temp);
         }
@@ -96,12 +94,10 @@ public class IndexedList implements List<Integer> {
         if(head == null){
             //if head empty then tail and head point to same reference
             tail = head = temp;
-            //System.out.print( "successfully added integer [" + temp.integer + "]\n");
             return true;
         }
 
         //if head is not null then tail.prev is not null
-        //System.out.print( "successfully added integer [" + temp.integer + "]\n");
         tail.next = temp;
         temp.prev = tail;
         tail = temp;
@@ -111,26 +107,22 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public Integer remove(int i) {
+        // check if i is valid
         if( (i<0) || (i>=size)){
             return null;
         }
-        //System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
-        //System.out.print( "begin removing index position " + i + "\n" );
+
         /** Get a reference to Node that needs to be removed **/
         Node temp = this.getNode(i);// used arrayList to help find needed Node faster
-        //System.out.print("reference of temp: " + temp + "\n");
-        //if ( temp == null || isEmpty() ) {// if temp is null or list is empty return null
-        //    return null;// leave leave leave
-        //}
-
 
         /** This is where we adjust arrayList after removal **/
         int index = i/K;
 
-        if( i%K != 0 ){
+        if( i%K != 0 ){// if i isn't exactly an array position. start on next position
             index++;
         }
 
+        /** This code is for adjusting arrayList **/
         // minus 1 because we will deal with last position
         for( ; index < arrayList.size() ;index++ ){
          //   System.out.print("IN 4 loop\n");
@@ -168,9 +160,13 @@ public class IndexedList implements List<Integer> {
                 head = tail = null;// empty list
             }
         }
-        //System.out.print( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
-        /** This code is for adjusting arrayList **/
         return temp.integer;
+    }
+
+    @Override
+    public void clear(){
+        head = tail = null;
+        arrayList.clear();;
     }
 
     @Override
@@ -300,17 +296,7 @@ public class IndexedList implements List<Integer> {
 
     @Override
     public Integer[] toArray(){
-        Integer[] arr = new Integer[size];
-        while(!isEmpty()){
-
-        }
         return null;
-    }
-
-    @Override
-    public void clear(){
-        head = tail = null;
-        arrayList.clear();;
     }
 
     @Override
