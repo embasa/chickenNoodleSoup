@@ -10,9 +10,49 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args){
+        //testIndexedList();
         runTests();
     }
 
+    public static void testIndexedList(){
+        System.out.print("test with K== 3 to keep list short.. \n");
+        indexedList = new IndexedList(3);
+        System.out.print("add 4 elements to List.. \n");
+        indexedList.add(1);
+        indexedList.add(2);
+        indexedList.add(3);
+        indexedList.add(4);
+        indexedList.print();
+        System.out.print("add 6 in position 1..\n");
+        indexedList.add(1,6);
+        indexedList.print();
+
+        System.out.print("change 2 to 7..\n");
+        indexedList.set(2,7);
+        indexedList.print();
+        System.out.print("remove last element.. \n");
+        indexedList.remove(indexedList.size()-1);
+        indexedList.print();
+        System.out.print("remove first element.. \n");
+        indexedList.remove(0);
+        indexedList.print();
+
+        System.out.print("clear list.. \n");
+        indexedList.clear();
+        indexedList.print();
+        System.out.print("add 5 elements.. \n");
+        for (int i=0;i<5;i++){
+            indexedList.add(i);
+        }
+        indexedList.print();
+        System.out.print("set all of them to 42.. \n");
+        for (int i=0;i<5;i++){
+            indexedList.set(i,42);
+        }
+        indexedList.print();
+
+
+    }
     private static ArrayList<Integer> arrayList;
     private static LinkedList<Integer> linkedList;
     private static IndexedList indexedList;
@@ -95,7 +135,7 @@ public class Main {
             System.out.printf("%8d%12d ms%12d ms%12d ms\n", n,timeArray,timeList,timeIndexed);
         }
 
-        System.out.print("\nTest set(i,N):\n");
+        System.out.print("\nTest set(i,I):\n");
         System.out.printf("%8s%15s%15s%15s\n","n","ArrayList","LinkedList","IndexedList");
         for( int n = 100; n <= N ; n*=10 ){
             initLists(n);
@@ -107,7 +147,7 @@ public class Main {
             System.out.printf("%8d%12d ms%12d ms%12d ms\n", n,timeArray,timeList,timeIndexed);
         }
 
-        System.out.print("\nTest add(i):\n");//this test requires empty lists
+        System.out.print("\nTest add(I):\n");//this test requires empty lists
         System.out.printf("%8s%15s%15s%15s\n","n","ArrayList","LinkedList","IndexedList");
         for( int n = 100; n <= N ; n*=10 ){
             //initLists(n/2);//fill up to half, then use function to add the second half
@@ -121,7 +161,7 @@ public class Main {
             System.out.printf("%8d%12d ms%12d ms%12d ms\n", n,timeArray,timeList,timeIndexed);
         }
 
-        System.out.print("\nTest add(i,N):\n");
+        System.out.print("\nTest add(i,I):\n");
         System.out.printf("%8s%15s%15s%15s\n","n","ArrayList","LinkedList","IndexedList");
         for( int n = 100; n <= N ; n*=10 ){
             initLists(n/2);//fill up to half, then use function to add the second half
@@ -148,7 +188,7 @@ public class Main {
         /** Int test for K values **/
         for( int n = 100; n <= N ; n*=10 ){
             System.out.print("n value " + n + ":\n");
-            System.out.printf("%-15s%15s%15s%15s%15s%15s\n","k","add()","get()","set()","remove()","add2()");
+            System.out.printf("%-15s%15s%15s%15s%15s%15s\n","k","add(i)","get(i)","set(i,I)","remove(i)","add(i,I)");
 
             for(int k = 1;k <= N; k*=10){//do full test for each K value
                 rand = new Random(System.currentTimeMillis());

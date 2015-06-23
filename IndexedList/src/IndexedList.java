@@ -220,22 +220,12 @@ public class IndexedList implements List<Integer> {
 
     public void print(){
 
-        System.out.print( "========================================\n" );
         Node temp = head;
-        System.out.printf("%5s  %7s  %s\n","index","integer","array index");
-        int count = 0;
         while( temp != null ){
-            System.out.printf( "%5d  %7d  ", count ,temp.integer );
-            System.out.print("temp: " + temp + " ");
-            if( count%K == 0 ){
-                System.out.print( (count/K) + "\n" );
-            }else {
-                System.out.println();
-            }
-            count++;
+            System.out.printf( "%-5d " ,temp.integer );
             temp=temp.next;
         }
-        System.out.print( "========================================\n" );
+        System.out.print( "\n" );
     }
 
     public void printArrayList(){
