@@ -6,12 +6,18 @@ import java.util.Random;
 /**
  * Created by computerito on 6/12/15.
  */
+
 public class Main {
+
+    public static void main(String[] args){
+        runTests();
+    }
 
     private static ArrayList<Integer> arrayList;
     private static LinkedList<Integer> linkedList;
     private static IndexedList indexedList;
     private static Random rand;
+    private static int randArray[];
     public static void initLists(int n){
         rand = new Random(System.currentTimeMillis());
         indexedList = new IndexedList();
@@ -27,7 +33,7 @@ public class Main {
         long start = System.currentTimeMillis();
         int n = lst.size();
         for(int i = 0; i< n; i++ ){
-            lst.add(rand.nextInt(lst.size()),rand.nextInt());
+            lst.add(randArray[i], rand.nextInt());
         }
 
         return System.currentTimeMillis() - start;
@@ -43,11 +49,21 @@ public class Main {
         return System.currentTimeMillis() - start;
     }
 
-    private static long timeElementRemoval(List<Integer> lst){
+    private static long timeElementAdd(List<Integer> lst,int n){
         long start = System.currentTimeMillis();
 
-        for(int i = 0; i< lst.size(); i++ ){
-            Integer elmt = lst.remove(rand.nextInt(lst.size()));
+        for(int i = 0; i< n; i++ ){
+            lst.add(i);
+        }
+
+        return System.currentTimeMillis() - start;
+    }
+
+    private static long timeElementRemoval(List<Integer> lst,int n){
+        long start = System.currentTimeMillis();
+
+        for(int i = 0; i< n; i++ ){
+            Integer elmt = lst.remove(randArray[i]);
         }
 
         return System.currentTimeMillis() - start;
@@ -57,19 +73,17 @@ public class Main {
         long start = System.currentTimeMillis();
 
         for(int i = 0; i< lst.size(); i++ ){
-            Integer elmt = lst.set(rand.nextInt(lst.size()), rand.nextInt());
+            Integer elmt = lst.set(i, rand.nextInt());
         }
 
         return System.currentTimeMillis() - start;
     }
 
-    public static void main(String[] args){
-        runTests();
-    }
 
     public static void runTests(){
         int N = 100000;
-        System.out.print("Test get():\n");
+
+        System.out.print("Test get(i):\n");
         System.out.printf("%8s%15s%15s%15s\n", "n", "ArrayList", "LinkedList", "IndexedList");
         for( int n = 100; n <= N ; n*=10 ){
             initLists(n);
@@ -81,7 +95,7 @@ public class Main {
             System.out.printf("%8d%12d ms%12d ms%12d ms\n", n,timeArray,timeList,timeIndexed);
         }
 
-        System.out.print("\nTest set():\n");
+        System.out.print("\nTest set(i,N):\n");
         System.out.printf("%8s%15s%15s%15s\n","n","ArrayList","LinkedList","IndexedList");
         for( int n = 100; n <= N ; n*=10 ){
             initLists(n);
@@ -93,23 +107,25 @@ public class Main {
             System.out.printf("%8d%12d ms%12d ms%12d ms\n", n,timeArray,timeList,timeIndexed);
         }
 
-        System.out.print("\nTest remove():\n");
+        System.out.print("\nTest add(i):\n");//this test requires empty lists
         System.out.printf("%8s%15s%15s%15s\n","n","ArrayList","LinkedList","IndexedList");
         for( int n = 100; n <= N ; n*=10 ){
-            initLists(n);
-
-            long timeArray = timeElementRemoval(arrayList);
-            long timeList = timeElementRemoval(linkedList);
-            long timeIndexed = timeElementRemoval(indexedList);
+            //initLists(n/2);//fill up to half, then use function to add the second half
+            arrayList = new ArrayList<>();
+            long timeArray = timeElementAdd(arrayList, n);
+            linkedList = new LinkedList<>();
+            long timeList = timeElementAdd(linkedList, n);
+            indexedList = new IndexedList();
+            long timeIndexed = timeElementAdd(indexedList, n);
 
             System.out.printf("%8d%12d ms%12d ms%12d ms\n", n,timeArray,timeList,timeIndexed);
         }
 
-        System.out.print("\nTest add():\n");
+        System.out.print("\nTest add(i,N):\n");
         System.out.printf("%8s%15s%15s%15s\n","n","ArrayList","LinkedList","IndexedList");
         for( int n = 100; n <= N ; n*=10 ){
             initLists(n/2);//fill up to half, then use function to add the second half
-
+            loadRandomArrayTwo(n/2);
             long timeArray = timeAddRandomly(arrayList);
             long timeList = timeAddRandomly(linkedList);
             long timeIndexed = timeAddRandomly(indexedList);
@@ -117,5 +133,59 @@ public class Main {
             System.out.printf("%8d%12d ms%12d ms%12d ms\n", n,timeArray,timeList,timeIndexed);
         }
 
+        System.out.print("\nTest remove(i):\n");
+        System.out.printf("%8s%15s%15s%15s\n","n","ArrayList","LinkedList","IndexedList");
+        for( int n = 100; n <= N ; n*=10 ){
+            initLists(n);
+            loadRandomArray(n);//call this function to make a random array of appropriate size
+            long timeArray = timeElementRemoval(arrayList,n);
+            long timeList = timeElementRemoval(linkedList,n);
+            long timeIndexed = timeElementRemoval(indexedList,n);
+
+            System.out.printf("%8d%12d ms%12d ms%12d ms\n", n,timeArray,timeList,timeIndexed);
+        }
+
+        /** Int test for K values **/
+        for( int n = 100; n <= N ; n*=10 ){
+            System.out.print("n value " + n + ":\n");
+            System.out.printf("%-15s%15s%15s%15s%15s%15s\n","k","add()","get()","set()","remove()","add2()");
+
+            for(int k = 1;k <= N; k*=10){//do full test for each K value
+                rand = new Random(System.currentTimeMillis());
+                indexedList = new IndexedList(k);
+                long timeAdd = timeElementAdd(indexedList, n);//Time it takes to populate up to n
+                long timeGet = timeElementAccess(indexedList);//time it takes to get() all those elements
+                long timeSet = timeSetElement(indexedList);//time it takes to set all those elements
+                loadRandomArray(n);//call this function to make a random array of appropriate size
+                //System.out.print("size before Remove: " + indexedList.size() + "\n");
+                long timeRemove = timeElementRemoval(indexedList,n);// Remove all of those elements
+                //System.out.print("size after Remove: " + indexedList.size() + "\n");
+                int half = n%2 == 0 ? n/2: n/2+1;//find appropriate half
+                timeElementAdd(indexedList,half);// use it to fill up to half the value for the final test
+                loadRandomArrayTwo(half);//
+                //System.out.print("size after filling n/2: " + indexedList.size() + "\n");
+                long timeAddRand = timeAddRandomly(indexedList);
+                System.out.printf("%-14d:%12d ms%12d ms%12d ms%12d ms%12d ms\n", k,timeAdd,timeGet,timeSet,timeRemove,timeAddRand);
+            }
+        }
+    }
+
+    // this method is used so same sequence of random numbers can be shared
+    // among the 3 lists
+    private static void loadRandomArray(int n){
+        randArray = new int[n];
+        int range = n;
+        for (int i =0;i < n;i++){
+            randArray[i] = rand.nextInt(range--);
+        }
+    }
+
+    // this method is used for adding random elements
+    private static void loadRandomArrayTwo(int n){
+        randArray = new int[n];
+        int range = n;
+        for (int i =0;i < n;i++){
+            randArray[i] = rand.nextInt(range++);
+        }
     }
 }

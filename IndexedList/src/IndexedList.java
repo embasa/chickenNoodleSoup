@@ -9,7 +9,7 @@ public class IndexedList implements List<Integer> {
     private Node head;
     private Node tail;
     private int size;
-    private static final int K = 100;
+    private static int K = 100;
 
     protected class Node{
         protected Node(){
@@ -19,6 +19,13 @@ public class IndexedList implements List<Integer> {
         Node next;
         Node prev;
         Integer integer;
+    }
+
+    public IndexedList(int K){
+        this.K = K;
+        size = 0;
+        head = tail = null;
+        arrayList = new ArrayList<>();
     }
 
     public IndexedList(){
