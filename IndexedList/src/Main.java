@@ -45,9 +45,11 @@ public class Main {
             indexedList.add(i);
         }
         indexedList.print();
+        System.out.print("get 3rd element.. \n");
+        System.out.print(indexedList.get(2));
         System.out.print("set all of them to 42.. \n");
         for (int i=0;i<5;i++){
-            indexedList.set(i,42);
+            indexedList.set(i, 42);
         }
         indexedList.print();
 
