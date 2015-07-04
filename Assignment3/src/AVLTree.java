@@ -47,16 +47,32 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>  extends Binar
     }
 
 
-    private BinaryNode<AnyType> singleRotationLeft(BinaryNode<AnyType> t){
-        return null;
+    private BinaryNode<AnyType> singleRotationLeft( BinaryNode<AnyType> k2 ){
+
+        BinaryNode<AnyType> k1 = k2.getLeft();
+        System.out.print("k1 h: " + height( k1 ) + " k2 h: " + height( k2 ) + "k2.r h: " + height( k2.getRight() ) + "\n" );
+        k2.setLeft( k1.getRight() );
+        k1.setRight( k2 );
+        System.out.print("k1 h: " + height( k1 ) + " k1.r h: " + height( k1.getRight() ) + " k1.l " + height( k1.getLeft() ) + "\n" );
+        k2.setHeight( Math.max(height(k2.getLeft()), height(k2.getRight())) + 1 );
+        k1.setHeight( Math.max( height( k1.getLeft() ), k2.getHeight() ) + 1 );
+        return k1;
     }
-    private BinaryNode<AnyType> doubleRotationLeft(BinaryNode<AnyType> t){
-        return null;
+    private BinaryNode<AnyType> doubleRotationLeft(BinaryNode<AnyType> k3){
+        k3.setLeft( singleRotationRight( k3.getLeft() ));
+        return singleRotationLeft( k3 );
     }
-    private BinaryNode<AnyType> singleRotationRight(BinaryNode<AnyType> t){
-        return null;
+    private BinaryNode<AnyType> singleRotationRight( BinaryNode<AnyType> k1 ){
+
+        BinaryNode<AnyType> k2 = k1.getRight();
+        k1.setRight( k2.getLeft() );
+        k2.setLeft( k1 );
+        k1.setHeight( Math.max( height( k1.getLeft() ), height( k1.getRight() ) ) +1 );
+        k2.setHeight( Math.max( height( k2.getRight() ), k1.getHeight() ) + 1 );
+        return k2;
     }
-    private BinaryNode<AnyType> doubleRotationRight(BinaryNode<AnyType> t){
-        return null;
+    private BinaryNode<AnyType> doubleRotationRight(BinaryNode<AnyType> k1 ){
+        k1.setRight( singleRotationLeft( k1.getRight() ) );
+        return singleRotationRight( k1 );
     }
 }
