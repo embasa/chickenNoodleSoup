@@ -298,6 +298,13 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
             right = rt;
             height = 0;
         }
+        public int getHeight(){
+            return height;
+        }
+
+        public void setHeight(int height){
+            this.height = height;
+        }
 
         public void incrementHeight(){
             height++;
