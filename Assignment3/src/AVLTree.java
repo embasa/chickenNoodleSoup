@@ -32,16 +32,22 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>  extends Binar
         if( t == null )
             return null;
         if( height( t.getLeft() ) - height( t.getRight() ) > 1 )// if imbalance is == 2
-            if( height(t.getLeft().getLeft()) >= height( t.getLeft().getRight() ) )
-                t = singleRotationLeft( t );
-            else
-                t = doubleRotationLeft( t );
+            if( height(t.getLeft().getLeft()) >= height( t.getLeft().getRight() ) ) {
+                System.out.print("single left rotation\n");
+                t = singleRotationLeft(t);
+            } else {
+                System.out.print("double left rotation\n");
+                t = doubleRotationLeft(t);
+            }
         else
         if( height( t.getRight() ) - height( t.getLeft() ) > 1 )
-            if( height( t.getRight().getRight() ) >= height( t.getRight().getLeft() ) )
-                t = singleRotationRight( t );
-            else
-                t = doubleRotationRight( t );
+            if( height( t.getRight().getRight() ) >= height( t.getRight().getLeft() ) ) {
+                System.out.print("single right rotation\n");
+                t = singleRotationRight(t);
+            } else {
+                System.out.print("double right rotation\n");
+                t = doubleRotationRight(t);
+            }
         t.setHeight(Math.max( height( t.getLeft() ), height( t.getRight() ) ) + 1);
         return t;
     }
@@ -50,10 +56,8 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>  extends Binar
     private BinaryNode<AnyType> singleRotationLeft( BinaryNode<AnyType> k2 ){
 
         BinaryNode<AnyType> k1 = k2.getLeft();
-        System.out.print("k1 h: " + height( k1 ) + " k2 h: " + height( k2 ) + "k2.r h: " + height( k2.getRight() ) + "\n" );
         k2.setLeft( k1.getRight() );
         k1.setRight( k2 );
-        System.out.print("k1 h: " + height( k1 ) + " k1.r h: " + height( k1.getRight() ) + " k1.l " + height( k1.getLeft() ) + "\n" );
         k2.setHeight( Math.max(height(k2.getLeft()), height(k2.getRight())) + 1 );
         k1.setHeight( Math.max( height( k1.getLeft() ), k2.getHeight() ) + 1 );
         return k1;

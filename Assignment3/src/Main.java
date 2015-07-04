@@ -14,16 +14,6 @@ public class Main {
         Random rand = new Random(System.currentTimeMillis());
         int size = 35;
         int[] randArray = new int[size];
-        bst.insert(10);
-        bst.insert(17);
-        (new TreePrinter(bst)).print("2 elements");
-        bst.insert(5);
-        bst.insert(14);
-        bst.insert(20);
-        (new TreePrinter(bst)).print("3 elements");
-        bst.insert(16);
-        (new TreePrinter(bst)).print("double left elements");
-/**
         while( bst.getRootHeight() != 5 ){
             //bst = new BinarySearchTree<>();// new bst to fill
             bst = new AVLTree<>();
@@ -50,6 +40,5 @@ public class Main {
             else
                 tp.print("tree empty");
         }
- **/
     }
 }
