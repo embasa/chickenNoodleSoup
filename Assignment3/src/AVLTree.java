@@ -5,6 +5,7 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>  extends Binar
 
     @Override
     public void insert(AnyType x){
+        System.out.print("\ninserting node " + x + ":\n");
         root = insert(x, root);
     }
 
@@ -33,19 +34,19 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>>  extends Binar
             return null;
         if( height( t.getLeft() ) - height( t.getRight() ) > 1 )// if imbalance is == 2
             if( height(t.getLeft().getLeft()) >= height( t.getLeft().getRight() ) ) {
-                System.out.print("single left rotation\n");
+                System.out.print( "\n    single left rotation: " + t.getElement() + "\n" );
                 t = singleRotationLeft(t);
             } else {
-                System.out.print("double left rotation\n");
+                System.out.print( "\n    double left rotation: " + t.getElement() + "\n" );
                 t = doubleRotationLeft(t);
             }
         else
         if( height( t.getRight() ) - height( t.getLeft() ) > 1 )
             if( height( t.getRight().getRight() ) >= height( t.getRight().getLeft() ) ) {
-                System.out.print("single right rotation\n");
+                System.out.print( "\n    single right rotation: " + t.getElement() + "\n" );
                 t = singleRotationRight(t);
             } else {
-                System.out.print("double right rotation\n");
+                System.out.print( "\n    double right rotation: " + t.getElement() + "\n" );
                 t = doubleRotationRight(t);
             }
         t.setHeight(Math.max( height( t.getLeft() ), height( t.getRight() ) ) + 1);

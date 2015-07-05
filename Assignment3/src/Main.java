@@ -18,27 +18,33 @@ public class Main {
             //bst = new BinarySearchTree<>();// new bst to fill
             bst = new AVLTree<>();
             for( int i = 0; i<size;i++){// load array
-                randArray[i] = 10 + rand.nextInt(90);// value between 10-99
+                randArray[i] = 10 + rand.nextInt(90);// value between 10-99http://www.espnfc.us/
                 bst.insert(randArray[i]);// insert the value in bst
+                if(i<size-1)
+                    (new TreePrinter(bst)).print("");
             }
         }
+
+        (new TreePrinter(bst)).print("COMPLETE AVL TREE");
+/**
         for(int i = 0;i< size;i++){
             System.out.print(randArray[i] + " ");
         }
-        TreePrinter tp = new TreePrinter(bst);
-        Integer integer = tp.getTree().getRoot().getElement();
+ **/
 
-        System.out.println("integer: " + integer);
-        tp.print("TREE!!!");
+        TreePrinter tp = new TreePrinter(bst);
+        //Integer integer = tp.getTree().getRoot().getElement();
+
         while( !tp.getTree().isEmpty() ){
             Integer val = bst.getRoot().getElement();
+            System.out.print("\nDeleting root: \n");
             bst.remove(val);
             //tp.setTree( bst );
             tp = new TreePrinter( bst );
             if(!bst.isEmpty())
-                tp.print("new root: " + bst.getRoot().getElement());
+                tp.print( "" );
             else
-                tp.print("tree empty");
+                tp.print("\nTree is now empty\n");
         }
     }
 }
