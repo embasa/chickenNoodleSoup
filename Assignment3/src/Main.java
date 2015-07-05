@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by computerito on 6/30/15.
@@ -12,7 +9,7 @@ public class Main {
 
     public static void main(String[] args){
         //BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-        BinarySearchTree<Integer> tree = new AVLTree<>();
+
         //testBst();
         //testAvl();
         compareTrees();
@@ -22,8 +19,6 @@ public class Main {
     public static void compareTrees(){
         System.out.print("Inserting\n");
         System.out.printf("%-10s%16s%16s\n", "n", "BST Tree", "AVL Tree");
-        BinarySearchTree<Integer> tree1 = null;
-        BinarySearchTree<Integer> tree2 = null;
         for( int n= 1000;n <=10000000;n*=10){
             BinarySearchTree<Integer> bst = new BinarySearchTree<>();
             BinarySearchTree<Integer> avl = new AVLTree<>();
@@ -37,11 +32,13 @@ public class Main {
             for( Integer element: array){
                 avl.insert(element);
             }
-            tree1 = bst;
-            tree2 = avl;
             long endAvl = System.currentTimeMillis() - startAvl;
             System.out.printf( "%-9d:%13d ms%13d ms\n", n, endBst, endAvl );
         }
+
+        BinarySearchTree<Integer> tree1 = null;
+        BinarySearchTree<Integer> tree2 = null;
+        /**
         System.out.print("K tests with 1 million elements\n");
         System.out.printf("%-10s%16s%16s\n", "k", "BST Tree", "AVL Tree");
         for( int n= 1000;n<=10000000;n*=10) {
@@ -58,22 +55,45 @@ public class Main {
             long end2 = System.currentTimeMillis() - start2;
             System.out.printf( "%-9d:%13d ms%13d ms\n", n, end1, end2 );
         }
-        System.out.print("M tests\n");
-        System.out.printf("%-10s%16s%16s\n", "m", "BST Tree", "AVL Tree");
+         **/
+        System.out.print("\nM tests\n");
+        for( int x = 3 ; x <=7 ; x+=2 ) {
+            int siize = 1000000;
+            Integer[] values = new Integer[siize];
+            System.out.print("\nratio " + x + "\n");
+            System.out.printf("%-10s%16s%16s\n", "m", "BST Tree", "AVL Tree");
+            for (int i = 0; i < ( x*siize/10) ; i++) {
+                values[i] = 1;
+            }
 
-        for( int m= 1000;m<=10000000;m*=10) {
-            int[] array = generateRandomValues(m);
-            long start1 = System.currentTimeMillis();
-            for (Integer element : array) {
-                tree1.contains(element);
+            ArrayList<Integer> value = new ArrayList<>(Arrays.asList(values));
+            Random rand = new Random(System.currentTimeMillis());
+            Collections.shuffle(value, rand);
+            int n = 1000000;
+            for (int m = 1000; m <= 100000; m *= 10) {
+                int[] array = generateRandomValues(m);
+                tree1 = populateTree(new BinarySearchTree<Integer>(), generateRandomValues(n));
+                long start1 = System.currentTimeMillis();
+                for (int i = 0; i < array.length; i++) {
+                    if (values[i] < 1) {
+                        tree1.contains(array[i]);
+                    } else {
+                        tree1.insert(array[i]);
+                    }
+                }
+                long end1 = System.currentTimeMillis() - start1;
+                tree2 = populateTree(new AVLTree<Integer>(), generateRandomValues(n));
+                long start2 = System.currentTimeMillis();
+                for (int i = 0; i < array.length; i++) {
+                    if (values[i] < 1) {
+                        tree2.contains(array[i]);
+                    } else {
+                        tree2.insert(array[i]);
+                    }
+                }
+                long end2 = System.currentTimeMillis() - start2;
+                System.out.printf("%-9d:%13d ms%13d ms\n", m, end1, end2);
             }
-            long end1 = System.currentTimeMillis() - start1;
-            long start2 = System.currentTimeMillis();
-            for (Integer element : array) {
-                tree2.contains(element);
-            }
-            long end2 = System.currentTimeMillis() - start2;
-            System.out.printf( "%-9d:%13d ms%13d ms\n", m, end1, end2 );
         }
 
     }
@@ -118,7 +138,7 @@ public class Main {
             ( new TreePrinter(tree) ).print( "" );
         }
 
-        emptyAndPrint(tree,"COMPLETED AVL TREE:");
+        emptyAndPrint(tree, "COMPLETED AVL TREE:");
     }
 
     public static void testBst(  ){
@@ -148,6 +168,14 @@ public class Main {
             }
         }
         return array;
+    }
+
+    //
+    public static BinarySearchTree<Integer> populateTree(BinarySearchTree<Integer> tree,int[] array){
+        for( Integer element : array ){
+            tree.insert(element);
+        }
+        return tree;
     }
 
 }
