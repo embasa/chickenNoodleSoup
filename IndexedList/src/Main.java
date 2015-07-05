@@ -123,7 +123,7 @@ public class Main {
 
 
     public static void runTests(){
-        int N = 100000;
+        int N = 1000000;
 
         System.out.print("Test get(i):\n");
         System.out.printf("%8s%15s%15s%15s\n", "n", "ArrayList", "LinkedList", "IndexedList");

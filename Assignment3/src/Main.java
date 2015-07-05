@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,42 +11,143 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args){
-        //BinarySearchTree<Integer> bst = new BinarySearchTree<>();
-        BinarySearchTree<Integer> bst = new AVLTree<>();
+        //BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+        BinarySearchTree<Integer> tree = new AVLTree<>();
+        //testBst();
+        //testAvl();
+        compareTrees();
+    }
+
+
+    public static void compareTrees(){
+        System.out.print("Inserting\n");
+        System.out.printf("%-10s%16s%16s\n", "n", "BST Tree", "AVL Tree");
+        BinarySearchTree<Integer> tree1 = null;
+        BinarySearchTree<Integer> tree2 = null;
+        for( int n= 1000;n <=10000000;n*=10){
+            BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+            BinarySearchTree<Integer> avl = new AVLTree<>();
+            int[] array = generateRandomValues( n );
+            long startBst = System.currentTimeMillis();
+            for( Integer element: array){
+                bst.insert(element);
+            }
+            long endBst = System.currentTimeMillis() - startBst;
+            long startAvl = System.currentTimeMillis();
+            for( Integer element: array){
+                avl.insert(element);
+            }
+            tree1 = bst;
+            tree2 = avl;
+            long endAvl = System.currentTimeMillis() - startAvl;
+            System.out.printf( "%-9d:%13d ms%13d ms\n", n, endBst, endAvl );
+        }
+        System.out.print("K tests with 1 million elements\n");
+        System.out.printf("%-10s%16s%16s\n", "k", "BST Tree", "AVL Tree");
+        for( int n= 1000;n<=10000000;n*=10) {
+            int[] array = generateRandomValues(n);
+            long start1 = System.currentTimeMillis();
+            for (Integer element : array) {
+                tree1.contains(element);
+            }
+            long end1 = System.currentTimeMillis() - start1;
+            long start2 = System.currentTimeMillis();
+            for (Integer element : array) {
+                tree2.contains(element);
+            }
+            long end2 = System.currentTimeMillis() - start2;
+            System.out.printf( "%-9d:%13d ms%13d ms\n", n, end1, end2 );
+        }
+        System.out.print("M tests\n");
+        System.out.printf("%-10s%16s%16s\n", "m", "BST Tree", "AVL Tree");
+
+        for( int m= 1000;m<=10000000;m*=10) {
+            int[] array = generateRandomValues(m);
+            long start1 = System.currentTimeMillis();
+            for (Integer element : array) {
+                tree1.contains(element);
+            }
+            long end1 = System.currentTimeMillis() - start1;
+            long start2 = System.currentTimeMillis();
+            for (Integer element : array) {
+                tree2.contains(element);
+            }
+            long end2 = System.currentTimeMillis() - start2;
+            System.out.printf( "%-9d:%13d ms%13d ms\n", m, end1, end2 );
+        }
+
+    }
+
+    public static int[] generateRandomValues( int n ){
+        HashMap< Integer, Integer > hashMap = new HashMap<>();// use to see if number is contained
         Random rand = new Random(System.currentTimeMillis());
-        int size = 35;
-        int[] randArray = new int[size];
-        while( bst.getRootHeight() != 5 ){
-            //bst = new BinarySearchTree<>();// new bst to fill
-            bst = new AVLTree<>();
-            for( int i = 0; i<size;i++){// load array
-                randArray[i] = 10 + rand.nextInt(90);// value between 10-99http://www.espnfc.us/
-                bst.insert(randArray[i]);// insert the value in bst
-                if(i<size-1)
-                    (new TreePrinter(bst)).print("");
+        int[] array = new int[n];
+        int i=0;
+        while( i < n ){
+            int value = rand.nextInt();
+            if( !hashMap.containsKey( value ) ){
+                array[i++] = value;
+                hashMap.put( value,value );
             }
         }
-
-        (new TreePrinter(bst)).print("COMPLETE AVL TREE");
-/**
-        for(int i = 0;i< size;i++){
-            System.out.print(randArray[i] + " ");
-        }
- **/
-
-        TreePrinter tp = new TreePrinter(bst);
-        //Integer integer = tp.getTree().getRoot().getElement();
+        return array;
+    }
+    public static void emptyAndPrint( BinarySearchTree<Integer> tree , String label ){
+        TreePrinter tp = new TreePrinter(tree);
+        tp.print( label );
 
         while( !tp.getTree().isEmpty() ){
-            Integer val = bst.getRoot().getElement();
-            System.out.print("\nDeleting root: \n");
-            bst.remove(val);
-            //tp.setTree( bst );
-            tp = new TreePrinter( bst );
-            if(!bst.isEmpty())
+            Integer val = tree.getRoot().getElement();
+            System.out.print("\nDeleted root: \n");
+            tree.remove(val);
+            tp = new TreePrinter( tree );
+            if(!tree.isEmpty())
                 tp.print( "" );
             else
-                tp.print("\nTree is now empty\n");
+                tp.print("\nTree is now empty.\n");
         }
     }
+
+    public static void testAvl(  ){
+        BinarySearchTree<Integer> tree = new AVLTree<>();
+        int size = 35;
+        int[] randArray = generateRandomValuesWithRange( size );
+
+        for( int i = 0; i<size ;i++ ){// load array
+            tree.insert(randArray[i]);// insert the value in tree
+            ( new TreePrinter(tree) ).print( "" );
+        }
+
+        emptyAndPrint(tree,"COMPLETED AVL TREE:");
+    }
+
+    public static void testBst(  ){
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+        int size = 35;
+        while( tree.getRootHeight() != 5 ){
+            tree = new BinarySearchTree<>();// new tree to fill
+            int[] randArray = generateRandomValuesWithRange( size );
+            for( int i = 0; i<size ;i++ ){// load array
+                tree.insert(randArray[i]);// insert the value in tree
+            }
+        }
+        emptyAndPrint(tree,"Original tree:");
+    }
+
+    /** This is for the first part where range is fixed between 10 - 99. **/
+    public static int[] generateRandomValuesWithRange( int n ){
+        HashMap< Integer, Integer > hashMap = new HashMap<>();// use to see if number is contained
+        Random rand = new Random(System.currentTimeMillis());
+        int[] array = new int[n];
+        int i=0;
+        while( i < n ){
+            int value = 10 + rand.nextInt(90);
+            if( !hashMap.containsKey( value ) ){
+                array[i++] = value;
+                hashMap.put( value,value );
+            }
+        }
+        return array;
+    }
+
 }
