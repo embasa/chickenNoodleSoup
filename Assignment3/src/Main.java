@@ -8,21 +8,25 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args){
-        //BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-
-        //testBst();
-        //testAvl();
+        System.out.print("starting... BinarySearchTree\n");
+        testBst();
+        System.out.print("starting... AVLTree\n");
+        testAvl();
+        System.out.print("starting... tree comparisons\n");
         compareTrees();
+        System.out.print("\nending\n");
     }
 
 
     public static void compareTrees(){
-        System.out.print("Inserting\n");
-        System.out.printf("%-10s%16s%16s\n", "n", "BST Tree", "AVL Tree");
-        for( int n= 1000;n <=10000000;n*=10){
+        int N = 10000000;
+        System.out.print("UNEVEN DISTRIBUTION\n");
+        System.out.printf("%26s","inserting..\n");
+        System.out.printf("%-10s%7s%13s| %6s%13s\n", "n","height", "BST Tree","height", "AVL Tree");
+        for( int n= 1000;n <=N;n*=10){
             BinarySearchTree<Integer> bst = new BinarySearchTree<>();
             BinarySearchTree<Integer> avl = new AVLTree<>();
-            int[] array = generateRandomValues( n );
+            int[] array = generateRandomValuesNormal(n);
             long startBst = System.currentTimeMillis();
             for( Integer element: array){
                 bst.insert(element);
@@ -33,69 +37,90 @@ public class Main {
                 avl.insert(element);
             }
             long endAvl = System.currentTimeMillis() - startAvl;
-            System.out.printf( "%-9d:%13d ms%13d ms\n", n, endBst, endAvl );
+            System.out.printf( "%-9d:%7d%10d ms| %6d%10d ms\n", n, bst.getRootHeight(), endBst,avl.getRootHeight(), endAvl );
         }
 
-        BinarySearchTree<Integer> tree1 = null;
-        BinarySearchTree<Integer> tree2 = null;
-        /**
-        System.out.print("K tests with 1 million elements\n");
-        System.out.printf("%-10s%16s%16s\n", "k", "BST Tree", "AVL Tree");
-        for( int n= 1000;n<=10000000;n*=10) {
-            int[] array = generateRandomValues(n);
-            long start1 = System.currentTimeMillis();
-            for (Integer element : array) {
-                tree1.contains(element);
-            }
-            long end1 = System.currentTimeMillis() - start1;
-            long start2 = System.currentTimeMillis();
-            for (Integer element : array) {
-                tree2.contains(element);
-            }
-            long end2 = System.currentTimeMillis() - start2;
-            System.out.printf( "%-9d:%13d ms%13d ms\n", n, end1, end2 );
-        }
-         **/
-        System.out.print("\nM tests\n");
-        for( int x = 3 ; x <=7 ; x+=2 ) {
-            int siize = 1000000;
-            Integer[] values = new Integer[siize];
-            System.out.print("\nratio " + x + "\n");
-            System.out.printf("%-10s%16s%16s\n", "m", "BST Tree", "AVL Tree");
-            for (int i = 0; i < ( x*siize/10) ; i++) {
-                values[i] = 1;
-            }
+        BinarySearchTree<Integer> tree1;
+        BinarySearchTree<Integer> tree2;
 
-            ArrayList<Integer> value = new ArrayList<>(Arrays.asList(values));
-            Random rand = new Random(System.currentTimeMillis());
-            Collections.shuffle(value, rand);
-            int n = 1000000;
-            for (int m = 1000; m <= 100000; m *= 10) {
-                int[] array = generateRandomValues(m);
-                tree1 = populateTree(new BinarySearchTree<Integer>(), generateRandomValues(n));
+        System.out.printf("%16s\n", "K test..");
+        System.out.printf("%-10s%7s%13s| %6s%13s\n", "k","height", "BST Tree","height", "AVL Tree");
+        for( int n= 1000;n<=N;n*=10) {
+            int[] sharedValues = generateRandomValuesNormal(n);
+            tree1 = populateTree(new BinarySearchTree<Integer>(),sharedValues);
+            tree2 = populateTree(new AVLTree<Integer>(),sharedValues);
+            System.out.print("\n          [ n : " + n + " ]\n");
+
+            for (int k = 1000; k<=N ;k*=10) {
+                int[] array = generateRandomValues(k);
+                long start1 = System.currentTimeMillis();
+                for (Integer element : array) {
+                    tree1.contains(element);
+                }
+
+                long end1 = System.currentTimeMillis() - start1;
+                long start2 = System.currentTimeMillis();
+                for (Integer element : array) {
+                    tree2.contains(element);
+                }
+                long end2 = System.currentTimeMillis() - start2;
+                System.out.printf("%-9d:%7d%10d ms| %6d%10d ms\n", k,tree1.getRootHeight(), end1,tree2.getRootHeight(), end2);
+            }
+        }
+        System.out.printf("\n%16s","M tests..");
+        for( int x = 1 ; x <= 8 ; x+=2 ) {
+            System.out.print("\n [ " + x*10 + "% insertions and " + (10-x)*10 + "% searches ]\n");
+            System.out.printf("%-10s%7s%13s| %6s%13s\n", "m","height", "BST Tree","height", "AVL Tree");
+
+            for (int m = 100000; m <= N; m *= 10) {
+                Integer[] values = new Integer[m/2];// make integer array
+                for (int i = 0; i < ( x*m/(20) ) ; i++) {
+                    values[i] = 1;
+                }
+                ArrayList<Integer> value = new ArrayList<>(Arrays.asList(values));
+                Random rand = new Random(System.currentTimeMillis());
+                Collections.shuffle(value, rand);
+                int[] array = generateRandomValues(m/2);
+                int[] array2 = generateRandomValuesNormal(N);
+                tree1 = populateTree(new BinarySearchTree<Integer>(), array2);
                 long start1 = System.currentTimeMillis();
                 for (int i = 0; i < array.length; i++) {
-                    if (values[i] < 1) {
+                    if (value.get(i) == null){
                         tree1.contains(array[i]);
                     } else {
                         tree1.insert(array[i]);
                     }
                 }
                 long end1 = System.currentTimeMillis() - start1;
-                tree2 = populateTree(new AVLTree<Integer>(), generateRandomValues(n));
+                tree2 = populateTree(new AVLTree<Integer>(), array2);
                 long start2 = System.currentTimeMillis();
                 for (int i = 0; i < array.length; i++) {
-                    if (values[i] < 1) {
+                    if (value.get(i) == null) {
                         tree2.contains(array[i]);
                     } else {
                         tree2.insert(array[i]);
                     }
                 }
                 long end2 = System.currentTimeMillis() - start2;
-                System.out.printf("%-9d:%13d ms%13d ms\n", m, end1, end2);
+                System.out.printf("%-9d:%7d%10d ms| %6d%10d ms\n", m/2,tree1.getRootHeight(), end1, tree2.getRootHeight(), end2);
             }
         }
 
+    }
+    public static int[] generateRandomValuesNormal( int n ){
+        HashMap< Integer, Integer > hashMap = new HashMap<>();// use to see if number is contained
+        Random rand = new Random(System.currentTimeMillis());
+        int[] array = new int[n];
+        int i=0;
+        while( i < n ){
+            double r = rand.nextGaussian();
+            int value = (int)((r - (int)r)*(n)) + ((i/(n/10))*n);
+            if( !hashMap.containsKey( value ) ){
+                array[i++] = value;
+                hashMap.put( value,value );
+            }
+        }
+        return array;
     }
 
     public static int[] generateRandomValues( int n ){
