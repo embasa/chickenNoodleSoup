@@ -8,7 +8,14 @@ public abstract class MySort {
     long comparisons = 0;
     long moves = 0;
 
-    //method that needs to be overwritten so as to be able to be tested
+    /**
+     * This abstract method is to be implemented by all of my Sort
+     * routines as to allow me to use Main to test all of them
+     * arbitrarily.
+     * @param a
+     * @param <AnyType>
+     * @return
+     */
     protected abstract < AnyType extends Comparable< ? super AnyType > > AnyType[] sort( AnyType[] a );
 
     public long getComparisons() {
