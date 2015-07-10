@@ -1,3 +1,7 @@
+/**
+ * Had to be its own class as to be able to @Override sort
+ * from MySort
+ */
 public class ShellSortKnuth extends MySort {
     @Override
     public < AnyType extends Comparable< ? super AnyType > > AnyType[] sort( AnyType[] a ) {

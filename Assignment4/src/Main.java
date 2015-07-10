@@ -57,7 +57,7 @@ public class Main {
             for ( int i = 0; i < array.length; i++ ) {
                 array[ i ] = 0;
             }
-            //Collections.sort(Arrays.asList(array),Collections.reverseOrder());
+
             timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
             timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
             timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
@@ -80,7 +80,6 @@ public class Main {
         System.out.printf( "%30s%15s%15s%15d\n", name,
                 NumberFormat.getNumberInstance( Locale.US ).format( mySort.getMoves() ),
                 NumberFormat.getNumberInstance( Locale.US ).format( mySort.getComparisons() ), end );
-
     }
 
     /**
