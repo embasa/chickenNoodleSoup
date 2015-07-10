@@ -9,12 +9,13 @@ public abstract class MySort {
     long moves = 0;
 
     //method that needs to be overwritten so as to be able to be tested
-    protected abstract <AnyType extends Comparable<? super AnyType>> AnyType[] sort(AnyType[] a);
+    protected abstract < AnyType extends Comparable< ? super AnyType > > AnyType[] sort( AnyType[] a );
 
-    public long getComparisons(){
+    public long getComparisons() {
         return comparisons;
     }
-    public long getMoves(){
+
+    public long getMoves() {
         return moves;
     }
 }

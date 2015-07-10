@@ -17,74 +17,76 @@
 /**
  * Implements an unbalanced binary search tree. Note that all "matching" is
  * based on the compareTo method.
- * 
+ *
  * @author Mark Allen Weiss (as cleaned up by Ronald Mak)
  */
-public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> 
-{
-    /** The tree root. */
+public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
+    /**
+     * The tree root.
+     */
     protected BinaryNode<AnyType> root;
 
-    /** get Root... **/
+    /**
+     * get Root...
+     **/
     public BinaryNode<AnyType> getRoot() {
-         return root;
+        return root;
     }
 
     /**
      * Construct the tree.
      */
-    public BinarySearchTree() 
-    {
+    public BinarySearchTree() {
         root = null;
     }
 
     /**
      * Insert into the tree; duplicates are ignored.
+     *
      * @param x the item to insert.
      */
-    public void insert(AnyType x) 
-    {
+    public void insert(AnyType x) {
         root = insert(x, root);
     }
 
     /**
      * Remove from the tree. Nothing is done if x is not found.
+     *
      * @param x the item to remove.
      */
-    public void remove(AnyType x) 
-    {
+    public void remove(AnyType x) {
         root = remove(x, root);
     }
 
     /**
      * Find the smallest item in the tree.
+     *
      * @return smallest item or null if empty.
-     * @throws Exception 
+     * @throws Exception
      */
-    public AnyType findMin() throws Exception 
-    {
+    public AnyType findMin() throws Exception {
         if (isEmpty()) throw new Exception();
         return findMin(root).element;
     }
 
     /**
      * Find the largest item in the tree.
+     *
      * @return the largest item of null if empty.
-     * @throws Exception 
+     * @throws Exception
      */
-    public AnyType findMax() throws Exception 
-    {
+    public AnyType findMax() throws Exception {
         if (isEmpty()) throw new Exception();
         return findMax(root).element;
     }
 
     /**
      * Find an item in the tree.
+     *
      * @param x the item to search for.
      * @return true if not found.
      */
-    public boolean contains(AnyType x) 
-    {
+    public boolean contains(AnyType x) {
         return contains(x, root);
     }
 
@@ -97,34 +99,32 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
 
     /**
      * Test if the tree is logically empty.
+     *
      * @return true if empty, false otherwise.
      */
-    public boolean isEmpty() 
-    {
+    public boolean isEmpty() {
         return root == null;
     }
 
     /**
      * Print the tree contents in sorted order.
      */
-    public void printTree() 
-    {
+    public void printTree() {
         if (isEmpty()) {
             System.out.println("Empty tree");
-        }
-        else {
+        } else {
             printTree(root);
         }
     }
 
     /**
      * Internal method to insert into a subtree.
+     *
      * @param x the item to insert.
      * @param t the node that roots the subtree.
      * @return the new root of the subtree.
      */
-    protected BinaryNode<AnyType> insert(AnyType x, BinaryNode<AnyType> t)
-    {
+    protected BinaryNode<AnyType> insert(AnyType x, BinaryNode<AnyType> t) {
         // Create a new node to be attached 
         // to the last-visited node.
         if (t == null) {
@@ -136,76 +136,71 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         // Find the insertion point.
         if (compareResult < 0) {
             t.left = insert(x, t.left);
-        }
-        else if (compareResult > 0) {
+        } else if (compareResult > 0) {
             t.right = insert(x, t.right);
-        }
-        else {
+        } else {
             // Duplicate: do nothing.
         }
-        
+
         return t;
     }
 
     /**
      * Internal method to remove from a subtree.
+     *
      * @param x the item to remove.
      * @param t the node that roots the subtree.
      * @return the new root of the subtree.
      */
-    protected BinaryNode<AnyType> remove(AnyType x, BinaryNode<AnyType> t)
-    {
+    protected BinaryNode<AnyType> remove(AnyType x, BinaryNode<AnyType> t) {
         // If item not found, do nothing.
-        if (t == null) return t; 
+        if (t == null) return t;
 
         int compareResult = x.compareTo(t.element);
 
         if (compareResult < 0) {
             t.left = remove(x, t.left);
-        }
-        else if (compareResult > 0) {
+        } else if (compareResult > 0) {
             t.right = remove(x, t.right);
         }
-        
+
         // Two children.
         else if (t.left != null && t.right != null) {
             t.element = findMin(t.right).element;
             t.right = remove(t.element, t.right);
-        } 
-        
+        }
+
         // Zero or one child.
         else {
             t = (t.left != null) ? t.left : t.right;
         }
-        
+
         return t;
     }
 
     /**
      * Internal method to find the smallest item in a subtree.
+     *
      * @param t the node that roots the subtree.
      * @return node containing the smallest item.
      */
-    private BinaryNode<AnyType> findMin(BinaryNode<AnyType> t) 
-    {
+    private BinaryNode<AnyType> findMin(BinaryNode<AnyType> t) {
         if (t == null) {
             return null;
-        }
-        else if (t.left == null) {
+        } else if (t.left == null) {
             return t;
-        }
-        else {
+        } else {
             return findMin(t.left);
         }
     }
 
     /**
      * Internal method to find the largest item in a subtree.
+     *
      * @param t the node that roots the subtree.
      * @return node containing the largest item.
      */
-    private BinaryNode<AnyType> findMax(BinaryNode<AnyType> t) 
-    {
+    private BinaryNode<AnyType> findMax(BinaryNode<AnyType> t) {
         if (t != null) {
             while (t.right != null) {
                 t = t.right;
@@ -217,33 +212,31 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
 
     /**
      * Internal method to find an item in a subtree.
+     *
      * @param x is item to search for.
      * @param t the node that roots the subtree.
      * @return node containing the matched item.
      */
-    private boolean contains(AnyType x, BinaryNode<AnyType> t) 
-    {
+    private boolean contains(AnyType x, BinaryNode<AnyType> t) {
         if (t == null) return false;
 
         int compareResult = x.compareTo(t.element);
 
         if (compareResult < 0) {
             return contains(x, t.left);
-        }
-        else if (compareResult > 0) {
+        } else if (compareResult > 0) {
             return contains(x, t.right);
-        }
-        else {
+        } else {
             return true; // Match
         }
     }
 
     /**
      * Internal method to print a subtree in sorted order.
+     *
      * @param t the node that roots the subtree.
      */
-    private void printTree(BinaryNode<AnyType> t) 
-    {
+    private void printTree(BinaryNode<AnyType> t) {
         if (t != null) {
             printTree(t.left);
             System.out.print(t.element + " ");
@@ -251,86 +244,86 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         }
     }
 
-    public int getRootHeight(){
-        return isEmpty() ? -1 : 1 + Math.max(height(root.left),height(root.right));
+    public int getRootHeight() {
+        return isEmpty() ? -1 : 1 + Math.max(height(root.left), height(root.right));
     }
 
     /**
      * Internal method to compute height of a subtree.
+     *
      * @param t the node that roots the subtree.
      */
-    private int height(BinaryNode<AnyType> t) 
-    {
-        return t == null ? -1 
-                         : 1 + Math.max(height(t.left), height(t.right));
+    private int height(BinaryNode<AnyType> t) {
+        return t == null ? -1
+                : 1 + Math.max(height(t.left), height(t.right));
     }
 
     /**
      * Basic node stored in unbalanced binary search trees.
      */
-    public static class BinaryNode<AnyType>
-    {
+    public static class BinaryNode<AnyType> {
         private AnyType element;           // data in the node
         private BinaryNode<AnyType> left;  // left child
         private BinaryNode<AnyType> right; // right child
         private int height;
-        
+
         /**
          * Constructor.
+         *
          * @param theElement the node data
          */
-        BinaryNode(AnyType theElement) 
-        {
+        BinaryNode(AnyType theElement) {
             this(theElement, null, null);
         }
 
         /**
          * Constructor
+         *
          * @param theElement
-         * @param lt left subtree
-         * @param rt right subtree
+         * @param lt         left subtree
+         * @param rt         right subtree
          */
         BinaryNode(AnyType theElement, BinaryNode<AnyType> lt,
-                                       BinaryNode<AnyType> rt) 
-        {
+                   BinaryNode<AnyType> rt) {
             element = theElement;
             left = lt;
             right = rt;
             height = 0;
         }
-        public int getHeight(){
+
+        public int getHeight() {
             return height;
         }
 
-        public void setHeight(int height){
+        public void setHeight(int height) {
             this.height = height;
         }
 
-        public void incrementHeight(){
+        public void incrementHeight() {
             height++;
         }
 
-        public void setElement(AnyType element){
+        public void setElement(AnyType element) {
             this.element = element;
         }
 
-        public void setLeft(BinaryNode<AnyType> left){
+        public void setLeft(BinaryNode<AnyType> left) {
             this.left = left;
         }
 
-        public  void setRight(BinaryNode<AnyType> right){
+        public void setRight(BinaryNode<AnyType> right) {
             this.right = right;
         }
 
-        public BinaryNode<AnyType> getLeft(){
+        public BinaryNode<AnyType> getLeft() {
             return left;
         }
 
-        public BinaryNode<AnyType> getRight(){
+        public BinaryNode<AnyType> getRight() {
             return right;
         }
 
-        public AnyType getElement(){
+        public AnyType getElement() {
             return element;
         }
     }
