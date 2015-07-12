@@ -3,10 +3,9 @@
  */
 public class ShellSort extends MySort {
     @Override
-    public < AnyType extends Comparable< ? super AnyType > > AnyType[] sort( AnyType[] a ) {
+    public < AnyType extends Comparable< ? super AnyType > > void sort( AnyType[] a ) {
         int j;
-        comparisons = 0;
-        moves = 0;
+        time = System.currentTimeMillis();
         for ( int h = a.length / 2; h > 0; h /= 2 ) {
             for ( int i = h; i < a.length; i++ ) {
                 AnyType tmp = a[ i ];
@@ -21,8 +20,7 @@ public class ShellSort extends MySort {
                 }
             }
         }
-        return a;
+        time = System.currentTimeMillis() - time;
     }
-
 }
 

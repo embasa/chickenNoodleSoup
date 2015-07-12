@@ -3,11 +3,14 @@ import java.util.*;
 
 /**
  * Created by bruno on 7/9/15.
+ *  Merge sort from cs146 summer 2015 lecture.
  */
-public class Main {
+public class MainAsgnFour {
 
     public static void main( String[] args ) {
         runComparisons();
+ //       Integer[] array = generateArray( 100 );
+  //      timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
     }
 
     /**
@@ -20,6 +23,7 @@ public class Main {
             System.out.printf( "\nN = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = generateArray( n );
+            timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
             timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
             timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
             timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
@@ -31,6 +35,7 @@ public class Main {
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = generateArray( n );
             Collections.sort( Arrays.asList( array ) );
+            timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
             timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
             timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
             timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
@@ -43,21 +48,23 @@ public class Main {
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = generateArray( n );
             Collections.sort( Arrays.asList( array ), Collections.reverseOrder() );
+            timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
             timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
             timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
             timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
         }
         System.out.println();
 
-        System.out.printf( "%80s\n", "== All Zeroes ==" );
+        System.out.printf( "%60s\n", "== All Zeroes ==" );
         for ( int n = 100; n <= 100000; n *= 10 ) {
             System.out.printf( "N = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = new Integer[ n ];// generateArray(n);
             for ( int i = 0; i < array.length; i++ ) {
-                array[ i ] = 0;
+                array[ i ] = 0 ;// an array of Integers are all initialized to null..
             }
 
+            timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
             timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
             timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
             timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
@@ -74,12 +81,11 @@ public class Main {
      * @param mySort a object of MySort type to use sort
      */
     public static void timeAndPrint( String name, Integer[] array, MySort mySort ) {
-        long start = System.currentTimeMillis();
         mySort.sort( array );
-        long end = System.currentTimeMillis() - start;
-        System.out.printf( "%30s%15s%15s%15d\n", name,
+        System.out.printf( "%30s%15s%15s%15s\n", name,
                 NumberFormat.getNumberInstance( Locale.US ).format( mySort.getMoves() ),
-                NumberFormat.getNumberInstance( Locale.US ).format( mySort.getComparisons() ), end );
+                NumberFormat.getNumberInstance( Locale.US ).format( mySort.getComparisons() ),
+                NumberFormat.getNumberInstance( Locale.US ).format( mySort.getTime() ));
     }
 
     /**

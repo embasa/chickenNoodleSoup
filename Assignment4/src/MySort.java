@@ -5,8 +5,9 @@
  * what I am passing to it
  */
 public abstract class MySort {
-    long comparisons = 0;
-    long moves = 0;
+    protected long comparisons = 0;
+    protected long moves = 0;
+    protected long time = 0;
 
     /**
      * This abstract method is to be implemented by all of my Sort
@@ -16,7 +17,7 @@ public abstract class MySort {
      * @param <AnyType>
      * @return
      */
-    protected abstract < AnyType extends Comparable< ? super AnyType > > AnyType[] sort( AnyType[] a );
+    protected abstract < AnyType extends Comparable< ? super AnyType > > void sort( AnyType[] a );
 
     public long getComparisons() {
         return comparisons;
@@ -24,6 +25,9 @@ public abstract class MySort {
 
     public long getMoves() {
         return moves;
+    }
+    public long getTime(){
+        return time;
     }
 }
 

@@ -4,11 +4,10 @@
  */
 public class ShellSortKnuth extends MySort {
     @Override
-    public < AnyType extends Comparable< ? super AnyType > > AnyType[] sort( AnyType[] a ) {
+    public < AnyType extends Comparable< ? super AnyType > > void sort( AnyType[] a ) {
         int j;
         int k = 1;
-        moves = 0;
-        comparisons = 0;
+        time = System.currentTimeMillis();
         while ( ( int ) ( Math.pow( 3, k + 1 ) - 1 ) / 2 < a.length / 2 ) {
             k++;
         }
@@ -26,6 +25,6 @@ public class ShellSortKnuth extends MySort {
                 }
             }
         }
-        return a;
+        time = System.currentTimeMillis() - time;
     }
 }
