@@ -22,6 +22,7 @@ public class MergeSort extends MySort{
 
     /**
      * Merges two already sorted portions of array, a, by using a temporary array
+     * copying values in order, and then returning them to original array.
      * @param a
      * @param tmpArray
      * @param leftPos

@@ -3,6 +3,12 @@
  * from MySort
  */
 public class ShellSortKnuth extends MySort {
+    /**
+     * This version of shell sort uses Knuth's series to cut down
+     * on the number of comparisons done
+     * @param a
+     * @param <AnyType>
+     */
     @Override
     public < AnyType extends Comparable< ? super AnyType > > void sort( AnyType[] a ) {
         int j;

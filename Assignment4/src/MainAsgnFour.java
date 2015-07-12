@@ -8,9 +8,17 @@ import java.util.*;
 public class MainAsgnFour {
 
     public static void main( String[] args ) {
-        runComparisons();
- //       Integer[] array = generateArray( 100 );
-  //      timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
+        //runComparisons();
+        Integer[] array = {2,1};// generateArray( 10000 );
+        timeAndPrint( "Quicksort", array, new QuickSort() );
+        //printArray( array );
+        if(testArray( array )){
+            System.out.println("sorted");
+        }else {
+
+            System.out.println("sort failed");
+        }
+
     }
 
     /**
@@ -85,7 +93,7 @@ public class MainAsgnFour {
         System.out.printf( "%30s%15s%15s%15s\n", name,
                 NumberFormat.getNumberInstance( Locale.US ).format( mySort.getMoves() ),
                 NumberFormat.getNumberInstance( Locale.US ).format( mySort.getComparisons() ),
-                NumberFormat.getNumberInstance( Locale.US ).format( mySort.getTime() ));
+                NumberFormat.getNumberInstance( Locale.US ).format( mySort.getTime() ) );
     }
 
     /**
@@ -94,12 +102,16 @@ public class MainAsgnFour {
      * @return array
      */
     public static Integer[] generateArray( int n ) {
+        int range = Integer.MAX_VALUE;
+        if(n<= 10 ){
+           range = 100;
+        }
         HashMap< Integer, Integer > hashMap = new HashMap<>();// use to see if number is contained
         Random rand = new Random( System.currentTimeMillis() );
         Integer[] array = new Integer[ n ];
         int i = 0;
         while ( i < n ) {
-            int value = rand.nextInt();
+            int value = rand.nextInt(range);
             if ( ! hashMap.containsKey( value ) ) {
                 array[ i++ ] = value;
                 hashMap.put( value, value );
@@ -108,5 +120,35 @@ public class MainAsgnFour {
         return array;
     }
 
+    /**
+     * Print array with single integer per line if value larger than 10
+     * otherwise print on single line with space seperators
+     * @param a Integer array to be printed
+     */
+    public static void printArray( Integer[] a){
+        if(a.length > 10){
+            for( Integer element: a){
+                System.out.println( element);
+            }
+        }else {
+            for( Integer element: a){
+                System.out.print( element + " " );
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * Test if array is sorted by comparing it to the result of
+     * Collections.sort( List ) and then using Arrays.equals
+     * to do actual comparison
+      * @param a
+     * @return
+     */
+    public static boolean testArray(Integer[] a){
+        Integer[] copy = a.clone();
+        Collections.sort( Arrays.asList( copy ) );
+        return Arrays.equals( a, copy );
+    }
 }
 

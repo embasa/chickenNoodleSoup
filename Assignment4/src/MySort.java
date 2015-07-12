@@ -29,5 +29,11 @@ public abstract class MySort {
     public long getTime(){
         return time;
     }
+
+    protected< AnyType extends Comparable< ? super AnyType > > int compare(AnyType a, AnyType b){
+        comparisons++;
+        return a.compareTo( b );
+    }
+
 }
 
