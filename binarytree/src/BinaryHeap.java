@@ -6,23 +6,23 @@
  * @author Mark Allen Weiss and made it Generic with the help
  *         of the the slides from cs146
  */
-public class HeapSort< AnyType extends Comparable< ? super AnyType > > {
+public class BinaryHeap< AnyType extends Comparable< ? super AnyType > > {
     private static final int DEFAULT_CAPACITY = 10;
     private int currentSize;
     private AnyType[] array;
 
-    public HeapSort() {
+    public BinaryHeap() {
         this( DEFAULT_CAPACITY );
     }
 
     @SuppressWarnings( "unchecked" )// Unchecked cast.. got it.
-    public HeapSort( int capacity ) {
+    public BinaryHeap( int capacity ) {
         currentSize = -1;
         array = ( AnyType[] ) new Comparable[ capacity + 1 ];
     }
 
     @SuppressWarnings( "unchecked" )// Unchecked cast.. got it.
-    public HeapSort( AnyType[] items ) {
+    public BinaryHeap( AnyType[] items ) {
         currentSize = items.length;
         array = ( AnyType[] ) new Comparable[ ( currentSize + 2 ) * 11 / 10 ];// maybe we don't want to copy..
         int i = 1;
@@ -33,7 +33,7 @@ public class HeapSort< AnyType extends Comparable< ? super AnyType > > {
 
     public static void main( String[] args ) {
         int numItems = 10;
-        HeapSort< Integer > h = new HeapSort<>( numItems );
+        BinaryHeap< Integer > h = new BinaryHeap<>( numItems );
         int i = 37;
         int count = 0;
 
