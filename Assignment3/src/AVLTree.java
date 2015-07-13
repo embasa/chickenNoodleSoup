@@ -1,14 +1,27 @@
 /**
  * Created by computerito on 7/1/15.
+ * @author bruno
+ * I used professors cleaned up version of the textbooks BinarySearchTree to implement my AVL tree
+ *
  */
 public class AVLTree<AnyType extends Comparable<? super AnyType>> extends BinarySearchTree<AnyType> {
-
+    /**
+     * This public method just calls the private insertion routine that takes in a
+     * Node
+     * @param x the item to insert.
+     */
     @Override
     public void insert(AnyType x) {
 //        System.out.print("\ninserting node " + x + ":\n");
         root = insert(x, root);
     }
 
+    /**
+     * Override insertion so as to be able to wrap in balance
+     * @param x the item to insert.
+     * @param t the node that roots the subtree.
+     * @return
+     */
     @Override
     protected BinaryNode<AnyType> insert(AnyType x, BinaryNode<AnyType> t) {
         return balance(super.insert(x, t));
@@ -28,7 +41,12 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>> extends Binary
         return n == null ? -1 : n.getHeight();
     }
 
-    // Assume t is either balanced or within one of being balance
+    /**
+     * This is the method that is used to rap the result of calling the insert or delete methods of the super
+     * class. This then rotates the results as appropriate
+     * @param t
+     * @return
+     */
     private BinaryNode<AnyType> balance(BinaryNode<AnyType> t) {
         if (t == null)
             return null;
@@ -52,7 +70,11 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>> extends Binary
         return t;
     }
 
-
+    /**
+     * takes k2, and then moves k1 to root and shifts k2 to the right
+     * @param k2 root of subtree being rotated
+     * @return
+     */
     private BinaryNode<AnyType> singleRotationLeft(BinaryNode<AnyType> k2) {
 
         BinaryNode<AnyType> k1 = k2.getLeft();
@@ -78,11 +100,22 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>> extends Binary
         return k2;
     }
 
+    /**
+     * Mirror case of doubleRotationLeft
+     * @param k1
+     * @return
+     */
     private BinaryNode<AnyType> doubleRotationRight(BinaryNode<AnyType> k1) {
         k1.setRight(singleRotationLeft(k1.getRight()));
         return singleRotationRight(k1);
     }
 
+    /**
+     * Method to test if a tree is balance
+     * @param node root of subtree that is being tested for imbalances
+     * @return
+     * @throws Exception
+     */
     private int checkBalance(BinaryNode<AnyType> node) throws Exception {
         if (node == null)
             return -1;

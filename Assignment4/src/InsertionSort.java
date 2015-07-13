@@ -10,7 +10,7 @@ public class InsertionSort extends MySort {
         int j;
         for ( int p = 1; p < a.length; p++ ) {
             AnyType tmp = a[ p ];
-            for ( j = p; j > 0 && compare( tmp, a[j-1] ) < 0; j-- ) {
+            for ( j = p; j > 0 && compare( tmp, a[ j - 1 ] ) < 0; j-- ) {
                 a[ j ] = a[ j - 1 ];
                 moves++;
             }

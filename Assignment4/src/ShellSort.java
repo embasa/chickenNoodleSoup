@@ -12,7 +12,7 @@ public class ShellSort extends MySort {
             for ( int i = h; i < a.length; i++ ) {
                 AnyType tmp = a[ i ];
 
-                for ( j = i; ( j >= h ) && compare( tmp, a[j-h] ) < 0 ; j -= h ) {
+                for ( j = i; ( j >= h ) && compare( tmp, a[ j - h ] ) < 0; j -= h ) {
                     a[ j ] = a[ j - h ];
                     moves++;
                 }

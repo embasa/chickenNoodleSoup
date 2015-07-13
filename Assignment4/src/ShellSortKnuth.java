@@ -6,6 +6,7 @@ public class ShellSortKnuth extends MySort {
     /**
      * This version of shell sort uses Knuth's series to cut down
      * on the number of comparisons done
+     *
      * @param a
      * @param <AnyType>
      */
@@ -23,7 +24,7 @@ public class ShellSortKnuth extends MySort {
         for ( int h = ( int ) ( Math.pow( 3, k ) - 1 ) / 2; h > 0; h = ( int ) ( Math.pow( 3, -- k ) - 1 ) / 2 ) {
             for ( int i = h; i < a.length; i++ ) {
                 AnyType tmp = a[ i ];
-                for ( j = i; j >= h && compare( tmp, a[j-h]  ) < 0; j -= h ) {
+                for ( j = i; j >= h && compare( tmp, a[ j - h ] ) < 0; j -= h ) {
                     a[ j ] = a[ j - h ];
                     moves++;
                 }

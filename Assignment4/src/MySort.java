@@ -5,6 +5,7 @@
  * what I am passing to it
  */
 public abstract class MySort {
+
     protected long comparisons = 0;
     protected long moves = 0;
     protected long time = 0;
@@ -13,6 +14,7 @@ public abstract class MySort {
      * This abstract method is to be implemented by all of my Sort
      * routines as to allow me to use Main to test all of them
      * arbitrarily.
+     *
      * @param a
      * @param <AnyType>
      * @return
@@ -26,11 +28,19 @@ public abstract class MySort {
     public long getMoves() {
         return moves;
     }
-    public long getTime(){
+
+    public long getTime() {
         return time;
     }
 
-    protected< AnyType extends Comparable< ? super AnyType > > int compare(AnyType caller, AnyType argument){
+    /**
+     * This method is used to call the compareTo so we are able to increment comparisons
+     * @param caller the element that will be calling compareTo
+     * @param argument the argument of the compareTo call
+     * @param <AnyType>
+     * @return
+     */
+    protected < AnyType extends Comparable< ? super AnyType > > int compare( AnyType caller, AnyType argument ) {
         comparisons++;
         return caller.compareTo( argument );
     }

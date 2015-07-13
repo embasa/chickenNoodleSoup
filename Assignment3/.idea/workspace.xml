@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c54f0a5-1d59-4f6e-8c8b-982cc656a8d6" name="Default" comment="">
+    <list default="true" id="9c54f0a5-1d59-4f6e-8c8b-982cc656a8d6" name="Default" comment="Cleaned up code for Assignment3">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../file.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Assignment3/AVLTree.class" afterPath="$PROJECT_DIR$/out/production/Assignment3/AVLTree.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Assignment3/BinarySearchTree$BinaryNode.class" afterPath="$PROJECT_DIR$/out/production/Assignment3/BinarySearchTree$BinaryNode.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Assignment3/BinarySearchTree.class" afterPath="$PROJECT_DIR$/out/production/Assignment3/BinarySearchTree.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Assignment3/Main.class" afterPath="$PROJECT_DIR$/out/production/Assignment3/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/out/production/Assignment4/MySort.class" afterPath="$PROJECT_DIR$/../Assignment4/out/production/Assignment4/MySort.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/out/production/Assignment4/ShellSortKnuth.class" afterPath="$PROJECT_DIR$/../Assignment4/out/production/Assignment4/ShellSortKnuth.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Assignment3/TreePrinter.class" afterPath="$PROJECT_DIR$/out/production/Assignment3/TreePrinter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AVLTree.java" afterPath="$PROJECT_DIR$/src/AVLTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/src/HeapSort.java" afterPath="$PROJECT_DIR$/../Assignment4/src/HeapSort.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/src/InsertionSort.java" afterPath="$PROJECT_DIR$/../Assignment4/src/InsertionSort.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/src/MainAsgnFour.java" afterPath="$PROJECT_DIR$/../Assignment4/src/MainAsgnFour.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/src/MergeSort.java" afterPath="$PROJECT_DIR$/../Assignment4/src/MergeSort.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/src/MySort.java" afterPath="$PROJECT_DIR$/../Assignment4/src/MySort.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/src/QuickSort.java" afterPath="$PROJECT_DIR$/../Assignment4/src/QuickSort.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/src/ShellSort.java" afterPath="$PROJECT_DIR$/../Assignment4/src/ShellSort.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/src/ShellSortKnuth.java" afterPath="$PROJECT_DIR$/../Assignment4/src/ShellSortKnuth.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TreePrinter.java" afterPath="$PROJECT_DIR$/src/TreePrinter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../binarytree/.idea/misc.xml" afterPath="$PROJECT_DIR$/../binarytree/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../insertion/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../insertion/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../procon2/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../procon2/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Assignment4/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Assignment4/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../binarytree/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../binarytree/.idea/workspace.xml" />
     </list>
     <ignored path="Assignment3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+              <caret line="127" column="18" selection-start-line="127" selection-start-column="18" selection-end-line="127" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -40,8 +61,8 @@
       <file leaf-file-name="AVLTree.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AVLTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.01980198">
-              <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -51,8 +72,21 @@
         <entry file="file://$PROJECT_DIR$/src/BinarySearchTree.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TreePrinter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TreePrinter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="54" column="39" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
+              <folding>
+                <element signature="e#912#913#0" expanded="true" />
+                <element signature="e#944#945#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -78,10 +112,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/BinaryTree.java" />
-        <option value="$PROJECT_DIR$/src/TreePrinter.java" />
         <option value="$PROJECT_DIR$/src/BinarySearchTree.java" />
-        <option value="$PROJECT_DIR$/src/AVLTree.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/TreePrinter.java" />
+        <option value="$PROJECT_DIR$/src/AVLTree.java" />
       </list>
     </option>
   </component>
@@ -495,6 +529,8 @@
       <workItem from="1436206407818" duration="5121000" />
       <workItem from="1436228059881" duration="2529000" />
       <workItem from="1436492897714" duration="108000" />
+      <workItem from="1436773659575" duration="978000" />
+      <workItem from="1436815708786" duration="309000" />
     </task>
     <task id="LOCAL-00001" summary="Working AVLTree">
       <created>1436047348287</created>
@@ -524,18 +560,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90198000" />
+    <option name="totallyTimeSpent" value="91485000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="1" width="1920" height="1054" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32870865" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -545,15 +580,16 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14797008" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14797008" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32870865" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4044824" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3660619" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.024625268" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14025696" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -601,7 +637,8 @@
     <MESSAGE value="Part 1 is complete for Assignment 3" />
     <MESSAGE value="working layout for ratio test for part 3" />
     <MESSAGE value="Finished code for assignment 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished code for assignment 3" />
+    <MESSAGE value="Cleaned up code for Assignment3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up code for Assignment3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -664,7 +701,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="144" column="38" selection-start-line="144" selection-start-column="38" selection-end-line="144" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -696,7 +736,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="144" column="38" selection-start-line="144" selection-start-column="38" selection-end-line="144" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -728,7 +771,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="144" column="38" selection-start-line="144" selection-start-column="38" selection-end-line="144" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -760,7 +806,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="144" column="38" selection-start-line="144" selection-start-column="38" selection-end-line="144" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -792,7 +841,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="144" column="38" selection-start-line="144" selection-start-column="38" selection-end-line="144" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -816,7 +868,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -848,7 +903,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -880,7 +938,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -912,7 +973,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="93" column="50" selection-start-line="93" selection-start-column="50" selection-end-line="93" selection-end-column="50" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -944,7 +1008,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="241" column="8" selection-start-line="241" selection-start-column="8" selection-end-line="241" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -968,7 +1035,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -980,14 +1050,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TreePrinter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../IndexedList/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -995,26 +1057,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BinarySearchTree.java">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+          <caret line="127" column="18" selection-start-line="127" selection-start-column="18" selection-end-line="127" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/TreePrinter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+          <caret line="54" column="39" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
+          <folding>
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BinarySearchTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AVLTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.01980198">
-          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
           <folding />
         </state>
       </provider>

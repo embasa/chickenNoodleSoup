@@ -48,6 +48,7 @@ public class TreePrinter {
      *
      * @param label the label to print before the tree.
      */
+    @SuppressWarnings( "unchecked" )
     public void print(String label) {
         System.out.println(label);
 
@@ -255,6 +256,7 @@ public class TreePrinter {
      * @param levelNodes the current level of nodes
      * @return the next level of nodes.
      */
+    @SuppressWarnings( "unchecked" )
     private BinarySearchTree.BinaryNode<Integer>[] nextLevel(int level,
                                                              BinarySearchTree.BinaryNode<Integer> levelNodes[]) {
 
