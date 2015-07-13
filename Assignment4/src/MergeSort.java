@@ -5,6 +5,8 @@ public class MergeSort extends MySort{
 
     @Override
     public < AnyType extends Comparable< ? super AnyType > > void sort( AnyType[] a ) {
+        moves = 0;
+        comparisons = 0;
         time = System.currentTimeMillis();
         AnyType[] tmpArray = (AnyType[])new Comparable[a.length];
         mergeSort( a, tmpArray, 0, a.length -1 );
@@ -35,7 +37,7 @@ public class MergeSort extends MySort{
         int tmpPos = leftPos;
         int numElements = rightEnd - leftPos +1;
         while(leftPos<= leftEnd && rightPos <= rightEnd){
-            if((++comparisons>0) &&a[leftPos].compareTo( a[rightPos] ) <=0){
+            if(compare( a[leftPos], a[rightPos] ) <=0){
                 tmpArray[tmpPos++] = a[leftPos++];
             }else {
                 tmpArray[tmpPos++] = a[rightPos++];
@@ -58,3 +60,5 @@ public class MergeSort extends MySort{
         }
     }
 }
+
+

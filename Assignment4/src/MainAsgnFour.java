@@ -8,74 +8,61 @@ import java.util.*;
 public class MainAsgnFour {
 
     public static void main( String[] args ) {
-        //runComparisons();
-        Integer[] array = {2,1};// generateArray( 10000 );
-        timeAndPrint( "Quicksort", array, new QuickSort() );
-        //printArray( array );
-        if(testArray( array )){
-            System.out.println("sorted");
-        }else {
-
-            System.out.println("sort failed");
-        }
-
+        runComparisons();
     }
 
     /**
-     * Method that runs all tests required in this assignment
-     * from 100 elements to 100,000 for all four tests
+     * This method contains four for loops that generate
+     * arrays with the following properties:
+     *      Unsorted
+     *      Sorted
+     *      Sorted in reverse
+     *      All zeroes
+     *
+     *  Each of these is tested for arrays
+     *  from n=100 all the way to n = 100000. And then that
+     *  array is passed on to each of the sorting
+     *  algorithms that are being tested.
      */
     public static void runComparisons(){
+        final int N = 100000;
         System.out.printf( "%50s\n", "== Random Unique Integers ==" );
-        for ( int n = 100; n <= 100000; n *= 10 ) {
+        for ( int n = 100; n <= N; n *= 10 ) {
             System.out.printf( "\nN = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = generateArray( n );
-            timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
-            timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
-            timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
-            timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
+            passArrayToSorts( array );
         }
         System.out.println();
         System.out.printf( "%50s\n", "== Sorted Unique Integers: Ascending ==" );
-        for ( int n = 100; n <= 100000; n *= 10 ) {
+        for ( int n = 100; n <= N; n *= 10 ) {
             System.out.printf( "N = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = generateArray( n );
             Collections.sort( Arrays.asList( array ) );
-            timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
-            timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
-            timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
-            timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
+            passArrayToSorts( array );
         }
         System.out.println();
 
         System.out.printf( "%50s\n", "== Sorted Unique Integers: Descending ==" );
-        for ( int n = 100; n <= 100000; n *= 10 ) {
+        for ( int n = 100; n <= N; n *= 10 ) {
             System.out.printf( "N = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = generateArray( n );
             Collections.sort( Arrays.asList( array ), Collections.reverseOrder() );
-            timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
-            timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
-            timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
-            timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
+            passArrayToSorts( array );
         }
         System.out.println();
 
-        System.out.printf( "%60s\n", "== All Zeroes ==" );
-        for ( int n = 100; n <= 100000; n *= 10 ) {
+        System.out.printf( "%50s\n", "== All Zeroes ==" );
+        for ( int n = 100; n <= N; n *= 10 ) {
             System.out.printf( "N = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = new Integer[ n ];// generateArray(n);
             for ( int i = 0; i < array.length; i++ ) {
                 array[ i ] = 0 ;// an array of Integers are all initialized to null..
             }
-
-            timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
-            timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
-            timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
-            timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
+            passArrayToSorts( array );
         }
         System.out.println();
 
@@ -149,6 +136,20 @@ public class MainAsgnFour {
         Integer[] copy = a.clone();
         Collections.sort( Arrays.asList( copy ) );
         return Arrays.equals( a, copy );
+    }
+
+    /**
+     * This method's purpose is to make it easy to add/remove sorts from the
+     * runComparisons method, instead of copy pasting new method call four times
+     * for each test
+     * @param array
+     */
+    public static void passArrayToSorts(Integer[] array){
+        timeAndPrint( "Quicksort", array.clone(), new QuickSort() );
+        timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
+        timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
+        timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
+        timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
     }
 }
 

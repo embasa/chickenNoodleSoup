@@ -30,9 +30,9 @@ public abstract class MySort {
         return time;
     }
 
-    protected< AnyType extends Comparable< ? super AnyType > > int compare(AnyType a, AnyType b){
+    protected< AnyType extends Comparable< ? super AnyType > > int compare(AnyType caller, AnyType argument){
         comparisons++;
-        return a.compareTo( b );
+        return caller.compareTo( argument );
     }
 
 }

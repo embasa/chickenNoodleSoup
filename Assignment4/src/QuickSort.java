@@ -6,6 +6,8 @@ public class QuickSort extends MySort {
     final int CUTOFF = 10;// a value gives improved performances.
 
     public < AnyType extends Comparable< ? super AnyType > > void sort( AnyType[] a ){
+        moves = 0;
+        comparisons = 0;
         time = System.currentTimeMillis();
         quickSort( a,0,a.length-1 );
         time = System.currentTimeMillis() - time;
@@ -99,7 +101,8 @@ public class QuickSort extends MySort {
         int j;
         for ( int p = left+1; p <= right; p++ ) {
             AnyType tmp = a[ p ];
-            for ( j = p; j > left && ( ++ comparisons > 0 ) && tmp.compareTo( a[ j - 1 ] ) < 0; j-- ) {
+//            for ( j = p; j > left && ( ++ comparisons > 0 ) && tmp.compareTo( a[ j - 1 ] ) < 0; j-- ) {
+            for ( j = p; j > left && compare( tmp, a[j -1 ] ) < 0; j-- ) {
                 a[ j ] = a[ j - 1 ];
                 moves++;
             }

@@ -11,9 +11,11 @@ public class ShellSortKnuth extends MySort {
      */
     @Override
     public < AnyType extends Comparable< ? super AnyType > > void sort( AnyType[] a ) {
+        moves = 0;
+        comparisons = 0;
+        time = System.currentTimeMillis();
         int j;
         int k = 1;
-        time = System.currentTimeMillis();
         while ( ( int ) ( Math.pow( 3, k + 1 ) - 1 ) / 2 < a.length / 2 ) {
             k++;
         }
@@ -21,7 +23,7 @@ public class ShellSortKnuth extends MySort {
         for ( int h = ( int ) ( Math.pow( 3, k ) - 1 ) / 2; h > 0; h = ( int ) ( Math.pow( 3, -- k ) - 1 ) / 2 ) {
             for ( int i = h; i < a.length; i++ ) {
                 AnyType tmp = a[ i ];
-                for ( j = i; j >= h && ( ++ comparisons > 0 ) && tmp.compareTo( a[ j - h ] ) < 0; j -= h ) {
+                for ( j = i; j >= h && compare( tmp, a[j-h]  ) < 0; j -= h ) {
                     a[ j ] = a[ j - h ];
                     moves++;
                 }
