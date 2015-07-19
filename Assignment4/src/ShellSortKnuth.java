@@ -17,7 +17,7 @@ public class ShellSortKnuth extends MySort {
         time = System.currentTimeMillis();
         int j;
         int k = 1;
-        while ( ( int ) ( Math.pow( 3, k + 1 ) - 1 ) / 2 < a.length / 2 ) {
+        while ( ( int ) ( Math.pow( 3, k + 1 ) - 1 ) / 2 < (a.length / 3) ) {
             k++;
         }
 

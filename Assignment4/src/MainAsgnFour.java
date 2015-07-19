@@ -9,7 +9,11 @@ public class MainAsgnFour {
 
     public static void main( String[] args ) {
         runComparisons();
-        //testSort( new HeapSort() );
+        //testSort( new QuickSortSubOptimal() );
+
+        //testSort( new ShellSortKnuth() );
+        //System.out.print("and then... \n");
+        //testSort( new QuickSort() );
     }
 
     /**
@@ -138,10 +142,14 @@ public class MainAsgnFour {
      * @param mySort an instance of one of the many sorts
      */
     public static void testSort( MySort mySort ) {
-        Integer[] array = generateArray( 1000 );
-        System.out.print( " Is array sorted: " + compareArray( array ) + "\n" );
+        Integer[] array = generateArray( 100 );
+        if(array.length <= 10)
+            printArray( array );
+        System.out.print(" Is array sorted: " + compareArray(array) + "\n");
         mySort.sort( array );
-        System.out.print( " Is array sorted:" + compareArray( array ) + "\n" );
+        if(array.length <= 10)
+            printArray( array );
+        System.out.print(" Is array sorted: " + compareArray(array) + "\n");
 
     }
 
@@ -169,6 +177,7 @@ public class MainAsgnFour {
     public static void passArrayToSorts( Integer[] array ) {
         timeAndPrint( "Heapsort", array.clone(), new HeapSort() );
         timeAndPrint( "Quicksort", array.clone(), new QuickSort() );
+        timeAndPrint( "Quicksort suboptimal", array.clone(), new QuickSortSubOptimal() );
         timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
         timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
         timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
