@@ -9,8 +9,15 @@ public class MainAsgnFour {
 
     public static void main( String[] args ) {
         runComparisons();
-        //testSort( new QuickSortSubOptimal() );
-
+//        ListMergeSort sort = new ListMergeSort();
+ //       testSort( sort );
+        /*
+        Integer[] array = generateArray(5);
+        System.out.print("array: ");
+        printArray(array);
+        sort.sort(array);
+        printArray(array);
+        */
         //testSort( new ShellSortKnuth() );
         //System.out.print("and then... \n");
         //testSort( new QuickSort() );
@@ -49,7 +56,7 @@ public class MainAsgnFour {
         }
         System.out.println();
 
-        System.out.printf( "%50s\n", "== Sorted Unique Integers: Descending ==" );
+        System.out.printf("%50s\n", "== Sorted Unique Integers: Descending ==");
         for ( int n = 100; n <= N; n *= 10 ) {
             System.out.printf( "N = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
@@ -81,12 +88,16 @@ public class MainAsgnFour {
      * @param array  an array of elements to sort
      * @param mySort a object of MySort type to use sort
      */
-    public static void timeAndPrint( String name, Integer[] array, MySort mySort ) {
-        mySort.sort( array );
-        System.out.printf( "%30s%15s%15s%15s\n", name,
-                NumberFormat.getNumberInstance( Locale.US ).format( mySort.getMoves() ),
-                NumberFormat.getNumberInstance( Locale.US ).format( mySort.getComparisons() ),
-                NumberFormat.getNumberInstance( Locale.US ).format( mySort.getTime() ) );
+    public static void timeAndPrint( String name, Integer[] array, MySort mySort ) throws Exception{
+        mySort.sort(array);
+        if(!compareArray(array)){
+            throw new Exception(" array not sorted successfully " + name);
+        }
+        System.out.printf("%30s%15s%15s%15s\n", name,
+                NumberFormat.getNumberInstance(Locale.US).format(mySort.getMoves()),
+                NumberFormat.getNumberInstance(Locale.US).format(mySort.getComparisons()),
+                NumberFormat.getNumberInstance(Locale.US).format(mySort.getTime()));
+
     }
 
     /**
@@ -138,11 +149,10 @@ public class MainAsgnFour {
      * MySort successfully sorted the array passed to it. It compares
      * Collections.sort()'s result with the result of mySort.sort().
      * ALso checks if it was presorted.
-     *
-     * @param mySort an instance of one of the many sorts
+     * * @param mySort an instance of one of the many sorts
      */
     public static void testSort( MySort mySort ) {
-        Integer[] array = generateArray( 100 );
+        Integer[] array = generateArray( 10 );
         if(array.length <= 10)
             printArray( array );
         System.out.print(" Is array sorted: " + compareArray(array) + "\n");
@@ -175,13 +185,18 @@ public class MainAsgnFour {
      * @param array
      */
     public static void passArrayToSorts( Integer[] array ) {
-        timeAndPrint( "Heapsort", array.clone(), new HeapSort() );
-        timeAndPrint( "Quicksort", array.clone(), new QuickSort() );
-        timeAndPrint( "Quicksort suboptimal", array.clone(), new QuickSortSubOptimal() );
-        timeAndPrint( "Merge sort", array.clone(), new MergeSort() );
-        timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
-        timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
-        timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
+        try {
+            timeAndPrint("Heapsort", array.clone(), new HeapSort());
+            timeAndPrint("Quicksort", array.clone(), new QuickSort());
+            //timeAndPrint( "Quicksort suboptimal", array.clone(), new QuickSortSubOptimal() );
+            timeAndPrint("Merge sort", array.clone(), new MergeSort());
+            timeAndPrint("List Merge sort", array.clone(), new ListMergeSort());
+//        timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
+            //       timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
+            //     timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 
