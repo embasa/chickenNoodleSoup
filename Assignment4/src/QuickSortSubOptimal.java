@@ -5,23 +5,21 @@ import javax.swing.text.Utilities;
  */
 
 public class QuickSortSubOptimal extends MySort {
-    final int CUTOFF = 10;// a value gives improved performances.
+    final int CUTOFF = 20;// a value gives improved performances.
 
     public < AnyType extends Comparable< ? super AnyType > > void sort( AnyType[] a ) {
         moves = 0;
         comparisons = 0;
-        time = System.currentTimeMillis();
-        quickSort( a, 0, a.length - 1 );
-        time = System.currentTimeMillis() - time;
+        time = System.currentTimeMillis(); quickSort( a, 0, a.length - 1 ); time = System.currentTimeMillis() - time;
     }
 
     /**
      * returns the median but also sorts the references so to have sentinel
      * values for both i and j.
      *
-     * @param a
-     * @param left
-     * @param right
+     * @param a array of comparables
+     * @param left left most index
+     * @param right right most index
      * @param <AnyType>
      * @return
      */
@@ -44,42 +42,44 @@ public class QuickSortSubOptimal extends MySort {
     }
 
     /**
-     * Recursive call that implements median of 3,
-     * future addition of insertion sory
-     *
-     * @param a         the array of Comparable elements
-     * @param left
-     * @param right
+     * Recursive call that implements median of 3
+     * @param a the array of Comparable elements
+     * @param left furthest left index, included
+     * @param right furthest right index, included
      * @param <AnyType> any arbitrary datatype that implements Comparable
      */
     private < AnyType extends Comparable< ? super AnyType > > void quickSort( AnyType[] a, int left, int right ) {
-        if ( left < right ) {
-            //AnyType pivot = median3( a, left, right );
+        if ( left + CUTOFF <= right ) {
             swapReferences(a,left,right);
             AnyType pivot = a[right];
 
             int i = left, j = right-1 ;
             for (; ; ) {
 
-                while ( (i<=j) && compare( a[ i ], pivot ) < 0 ) { i++;}
-                while ((i<=j) && compare(  a[ j ], pivot ) > 0 ) {j--;}
+                while ( (i<right) && compare( a[ i ], pivot ) <= 0 ) { i++;}
+                while ( (j>left) && compare(  a[ j ], pivot ) >= 0 ) {j--;}
                 if ( i < j ) {
                     swapReferences( a, i, j );
                 } else {
                     break;
                 }
             }
-
             swapReferences( a, i, right );
 
             quickSort( a, left, i - 1 );// smaller elements
             quickSort( a, i + 1, right );// bigger elements
 
-        }// else {
-       //     insertionSort( a, left, right );
-       // }
+        } else {
+            insertionSort( a, left, right );
+        }
     }
 
+    /**
+     * This array swaps 2 elements and increments the moves counter
+     * @param a array of comparables * @param i left index
+     * @param j right index
+     * @param <AnyType> comparable type
+     */
     private < AnyType extends Comparable< ? super AnyType > > void swapReferences( AnyType[] a, int i, int j ) {
         moves+=2;
         AnyType temp = a[ i ];
@@ -101,7 +101,6 @@ public class QuickSortSubOptimal extends MySort {
         int j;
         for ( int p = left + 1; p <= right; p++ ) {
             AnyType tmp = a[ p ];
-//            for ( j = p; j > left && ( ++ comparisons > 0 ) && tmp.compareTo( a[ j - 1 ] ) < 0; j-- ) {
             for ( j = p; j > left && compare( tmp, a[ j - 1 ] ) < 0; j-- ) {
                 a[ j ] = a[ j - 1 ];
                 moves++;

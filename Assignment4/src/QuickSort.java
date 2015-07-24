@@ -3,7 +3,7 @@
  */
 
 public class QuickSort extends MySort {
-    final int CUTOFF = 10;// a value gives improved performances.
+    final int CUTOFF = 20;// a value gives improved performances.
 
     public <AnyType extends Comparable<? super AnyType>> void sort(AnyType[] a) {
         moves = 0;
@@ -13,8 +13,7 @@ public class QuickSort extends MySort {
         time = System.currentTimeMillis() - time;
     }
 
-    /**
-     * returns the median but also sorts the references so to have sentinel
+    /**javac * returns the median but also sorts the references so to have sentinel
      * values for both i and j.
      *
      * @param a
@@ -59,8 +58,6 @@ public class QuickSort extends MySort {
             int i = left, j = right - 1;
             for ( ; ; ) {
 ;
-//            while ( a[++i].compareTo( pivot ) < 0 );
-//            while ( a[--j].compareTo( pivot ) > 0 );
                 while (compare(a[++i], pivot) < 0) ;
                 while (compare(a[--j], pivot) > 0) ;
                 if (i < j) {
@@ -77,7 +74,7 @@ public class QuickSort extends MySort {
 
         } else {
            insertionSort( a, left, right );
-         }
+        }
     }
 
 

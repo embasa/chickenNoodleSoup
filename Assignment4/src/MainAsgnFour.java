@@ -9,18 +9,6 @@ public class MainAsgnFour {
 
     public static void main( String[] args ) {
         runComparisons();
-//        ListMergeSort sort = new ListMergeSort();
- //       testSort( sort );
-        /*
-        Integer[] array = generateArray(5);
-        System.out.print("array: ");
-        printArray(array);
-        sort.sort(array);
-        printArray(array);
-        */
-        //testSort( new ShellSortKnuth() );
-        //System.out.print("and then... \n");
-        //testSort( new QuickSort() );
     }
 
     /**
@@ -37,7 +25,9 @@ public class MainAsgnFour {
      * algorithms that are being tested.
      */
     public static void runComparisons() {
-        final int N = 100000;
+        final int N = 10000;
+        /**
+         **/
         System.out.printf( "%50s\n", "== Random Unique Integers ==" );
         for ( int n = 100; n <= N; n *= 10 ) {
             System.out.printf( "\nN = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
@@ -48,7 +38,7 @@ public class MainAsgnFour {
         System.out.println();
         System.out.printf( "%50s\n", "== Sorted Unique Integers: Ascending ==" );
         for ( int n = 100; n <= N; n *= 10 ) {
-            System.out.printf( "N = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
+            System.out.printf( "\nN = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = generateArray( n );
             Collections.sort( Arrays.asList( array ) );
@@ -58,22 +48,22 @@ public class MainAsgnFour {
 
         System.out.printf("%50s\n", "== Sorted Unique Integers: Descending ==");
         for ( int n = 100; n <= N; n *= 10 ) {
-            System.out.printf( "N = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
+            System.out.printf( "\nN = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = generateArray( n );
             Collections.sort( Arrays.asList( array ), Collections.reverseOrder() );
             passArrayToSorts( array );
         }
         System.out.println();
-
-        System.out.printf( "%50s\n", "== All Zeroes ==" );
+        System.out.printf("%50s\n", "== All Zeroes ==");
         for ( int n = 100; n <= N; n *= 10 ) {
-            System.out.printf( "N = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
+            System.out.printf( "\nN = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = new Integer[ n ];// generateArray(n);
             for ( int i = 0; i < array.length; i++ ) {
                 array[ i ] = 0;// an array of Integers are all initialized to null..
             }
+//            printArray(array);
             passArrayToSorts( array );
         }
         System.out.println();
@@ -90,20 +80,20 @@ public class MainAsgnFour {
      */
     public static void timeAndPrint( String name, Integer[] array, MySort mySort ) throws Exception{
         mySort.sort(array);
+        array[0] = array[array.length-1];
         if(!compareArray(array)){
-            throw new Exception(" array not sorted successfully " + name);
+            throw new Exception(name +": failed to sort");
         }
         System.out.printf("%30s%15s%15s%15s\n", name,
                 NumberFormat.getNumberInstance(Locale.US).format(mySort.getMoves()),
                 NumberFormat.getNumberInstance(Locale.US).format(mySort.getComparisons()),
                 NumberFormat.getNumberInstance(Locale.US).format(mySort.getTime()));
-
     }
 
     /**
-     * Generate an array with n ammount of unique integers
+     * Generate an array with n amount of unique integers
      *
-     * @param n
+     * @param n the number of elements to generate
      * @return array
      */
     public static Integer[] generateArray( int n ) {
@@ -111,15 +101,15 @@ public class MainAsgnFour {
         if ( n <= 10 ) {
             range = 100;
         }
-        HashMap< Integer, Integer > hashMap = new HashMap<>();// use to see if number is contained
-        Random rand = new Random( System.currentTimeMillis() );
-        Integer[] array = new Integer[ n ];
+        HashMap<Integer, Integer> hashMap = new HashMap<>();// use to see if number is contained
+        Random rand = new Random(System.currentTimeMillis());
+        Integer[] array = new Integer[n];
         int i = 0;
-        while ( i < n ) {
-            int value = rand.nextInt( range );
-            if ( ! hashMap.containsKey( value ) ) {
-                array[ i++ ] = value;
-                hashMap.put( value, value );
+        while (i < n) {
+            int value = rand.nextInt(range);
+            if (!hashMap.containsKey(value)) {
+                array[i++] = value;
+                hashMap.put(value, value);
             }
         }
         return array;
@@ -149,7 +139,7 @@ public class MainAsgnFour {
      * MySort successfully sorted the array passed to it. It compares
      * Collections.sort()'s result with the result of mySort.sort().
      * ALso checks if it was presorted.
-     * * @param mySort an instance of one of the many sorts
+     * @param mySort an instance of one of the many sorts
      */
     public static void testSort( MySort mySort ) {
         Integer[] array = generateArray( 10 );
@@ -160,7 +150,6 @@ public class MainAsgnFour {
         if(array.length <= 10)
             printArray( array );
         System.out.print(" Is array sorted: " + compareArray(array) + "\n");
-
     }
 
     /**
@@ -168,7 +157,7 @@ public class MainAsgnFour {
      * Collections.sort( List ) and then using Arrays.equals
      * to do actual comparison
      *
-     * @param a
+     * @param a array to compare vs. sort() result
      * @return
      */
     public static boolean compareArray( Integer[] a ) {
@@ -182,18 +171,18 @@ public class MainAsgnFour {
      * runComparisons method, instead of copy pasting new method call four times
      * for each test
      *
-     * @param array
+     * @param array this array is to be cloned by every call of timeAndPrint()
      */
     public static void passArrayToSorts( Integer[] array ) {
         try {
+            timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
+            timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
+            timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
             timeAndPrint("Heapsort", array.clone(), new HeapSort());
-            timeAndPrint("Quicksort", array.clone(), new QuickSort());
-            //timeAndPrint( "Quicksort suboptimal", array.clone(), new QuickSortSubOptimal() );
             timeAndPrint("Merge sort", array.clone(), new MergeSort());
             timeAndPrint("List Merge sort", array.clone(), new ListMergeSort());
-//        timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
-            //       timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
-            //     timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
+            timeAndPrint("Quicksort", array.clone(), new QuickSort());
+            timeAndPrint( "Quicksort suboptimal", array.clone(), new QuickSortSubOptimal() );
         }catch (Exception e){
             e.printStackTrace();
         }
