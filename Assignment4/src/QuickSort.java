@@ -50,7 +50,6 @@ public class QuickSort extends MySort {
      * @param <AnyType> any arbitrary datatype that implements Comparable
      */
     private <AnyType extends Comparable<? super AnyType>> void quickSort(AnyType[] a, int left, int right) {
-        //if ( left + CUTOFF <= right ) {
         if (left + CUTOFF <= right) {
 
             AnyType pivot = median3(a, left, right);

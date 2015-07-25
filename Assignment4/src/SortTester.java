@@ -5,7 +5,7 @@ import java.util.*;
  * Created by bruno on 7/9/15.
  * Merge sort from cs146 summer 2015 lecture.
  */
-public class MainAsgnFour {
+public class SortTester {
 
     public static void main( String[] args ) {
         runComparisons();
@@ -25,7 +25,7 @@ public class MainAsgnFour {
      * algorithms that are being tested.
      */
     public static void runComparisons() {
-        final int N = 10000;
+        final int N = 100000;
         /**
          **/
         System.out.printf( "%50s\n", "== Random Unique Integers ==" );
@@ -56,8 +56,7 @@ public class MainAsgnFour {
         }
         System.out.println();
         System.out.printf("%50s\n", "== All Zeroes ==");
-        for ( int n = 100; n <= N; n *= 10 ) {
-            System.out.printf( "\nN = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
+        for ( int n = 100; n <= N; n *= 10 ) { System.out.printf( "\nN = %6s\n", NumberFormat.getNumberInstance( Locale.US ).format( n ) );
             System.out.printf( "\n%30s%15s%15s%15s\n", "ALGORITHM", "MOVES", "COMPARISONS", "MILLISECONDS" );
             Integer[] array = new Integer[ n ];// generateArray(n);
             for ( int i = 0; i < array.length; i++ ) {
@@ -72,7 +71,7 @@ public class MainAsgnFour {
 
     /**
      * This method times how long it takes to sort, and prints the result
-     * formatted as preferred
+     * formatted as preferred. If sort fails, exception is thrown.
      *
      * @param name   name of sort
      * @param array  an array of elements to sort
@@ -80,14 +79,14 @@ public class MainAsgnFour {
      */
     public static void timeAndPrint( String name, Integer[] array, MySort mySort ) throws Exception{
         mySort.sort(array);
-        array[0] = array[array.length-1];
-        if(!compareArray(array)){
+        if(!compareArray(array)){//
             throw new Exception(name +": failed to sort");
         }
         System.out.printf("%30s%15s%15s%15s\n", name,
                 NumberFormat.getNumberInstance(Locale.US).format(mySort.getMoves()),
                 NumberFormat.getNumberInstance(Locale.US).format(mySort.getComparisons()),
                 NumberFormat.getNumberInstance(Locale.US).format(mySort.getTime()));
+
     }
 
     /**
@@ -176,8 +175,8 @@ public class MainAsgnFour {
     public static void passArrayToSorts( Integer[] array ) {
         try {
             timeAndPrint( "Insertion sort", array.clone(), new InsertionSort() );
-            timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
             timeAndPrint( "Shellsort suboptimal", array.clone(), new ShellSort() );
+            timeAndPrint( "Shellsort Knuth", array.clone(), new ShellSortKnuth() );
             timeAndPrint("Heapsort", array.clone(), new HeapSort());
             timeAndPrint("Merge sort", array.clone(), new MergeSort());
             timeAndPrint("List Merge sort", array.clone(), new ListMergeSort());
