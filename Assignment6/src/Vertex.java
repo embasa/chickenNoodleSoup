@@ -1,38 +1,46 @@
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 
 /**
+ * This class is for Graph class to use to populate graphs
  * Created by bruno on 7/26/15.
  */
 public class Vertex
 {
-   class Tuple<X, Y> implements Comparable<X>
+   /**
+    * This class is meant to hold a name and edge to use
+    * for our adjacency list. Potentially <Y> should implement
+    * comparable as to be able to use in Priority Queue
+    *
+    * @param <X> normally a String that identifies a vertex
+    * @param <Y> normally a Integer representing the weight
+    *           between this vertex and the vertex who owns
+    *           this Tuple
+    */
+   class Tuple<X, Y>
    {
-      public final X x;
-      public final Y y;
+      public final X name;
+      public final Y edgeWeight;
 
-      public Tuple(X x, Y y)
+      public Tuple(X name, Y edgeWeight)
       {
-         this.x = x;
-         this.y = y;
+         this.name = name;
+         this.edgeWeight = edgeWeight;
       }
 
       /**
-       * Text if object is equal to x value
+       * This method is for the contains() moethod. It matches up the argument with
+       * the name value of the Tuple to test for equality. Since name is of type
+       * String, the object must be tested for match
        *
        * @param object Object being compared to x
-       * @return
+       * @return returns true only if object is a String matching the name of calling reference
        */
+      @Override
       public boolean equals(Object object)
       {
-         return object.getClass() == x.getClass() && x == object;
+         return object.getClass() == name.getClass() && name == object;
       }
 
-      public int compareTo(X x)
-      {
-         return 0;
-      }
    }
 
    int indegree;
@@ -40,10 +48,14 @@ public class Vertex
    int distance;
    boolean known;
    Vertex path;
-   private final int CAPACITY = 10;
    String name;
    ArrayList<Tuple<String, Integer>> adjList;
 
+   /**
+    * default constructor
+    * @param name a String that identifies this vertex
+    *             will be used as key in HashMap.
+    */
    public Vertex(String name)
    {
       this.indegree = 0;
@@ -52,11 +64,22 @@ public class Vertex
       this.distance = Integer.MAX_VALUE;
       this.path = null;
       this.known = false;
-      this.adjList = new ArrayList<>(CAPACITY);
+      this.adjList = new ArrayList<>(10);// magical number for min size
    }
 
+   /**
+    * adjList is of type Tuple, but other is type string.
+    * this is fine because equals() is overridden in tuples class
+    * suppress SuspiciousMethodCalls warning.
+    * @param other a string containing the name of an adjacent
+    *              vertex
+    * @param weight the weight of the corresponding edge between
+    *               pair of vertex
+    * @return false if duplicate other, true otherwise
+    */
    boolean addAdjacentVertex(String other, Integer weight)
    {
+      //noinspection SuspiciousMethodCalls
       if (!adjList.contains(other))
       {
          adjList.add(new Tuple<>(other, weight));
@@ -65,11 +88,16 @@ public class Vertex
       return false;
    }
 
+   /**
+    * Method for printing if code is ever reused and needs
+    * to be debugged.
+    */
+   @SuppressWarnings("unused")
    public void print()
    {
       for (Tuple tuple : adjList)
       {
-         System.out.print("    " + tuple.x + " - " + tuple.y + "\n");
+         System.out.print("    " + tuple.name + " - " + tuple.edgeWeight + "\n");
       }
    }
 }
