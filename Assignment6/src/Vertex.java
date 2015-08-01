@@ -14,14 +14,14 @@ public class Vertex
     * @param <X> normally a String that identifies a vertex
     * @param <Y> normally a Integer representing the weight
     *           between this vertex and the vertex who owns
-    *           this Tuple
+    *           this Edge
     */
-   class Tuple<X, Y>
+   class Edge<X, Y>
    {
       public final X name;
       public final Y edgeWeight;
 
-      public Tuple(X name, Y edgeWeight)
+      public Edge(X name, Y edgeWeight)
       {
          this.name = name;
          this.edgeWeight = edgeWeight;
@@ -29,7 +29,7 @@ public class Vertex
 
       /**
        * This method is for the contains() moethod. It matches up the argument with
-       * the name value of the Tuple to test for equality. Since name is of type
+       * the name value of the Edge to test for equality. Since name is of type
        * String, the object must be tested for match
        *
        * @param object Object being compared to x
@@ -49,7 +49,7 @@ public class Vertex
    boolean known;
    Vertex path;
    String name;
-   ArrayList<Tuple<String, Integer>> adjList;
+   ArrayList<Edge<String, Integer>> adjList;
 
    /**
     * default constructor
@@ -68,8 +68,8 @@ public class Vertex
    }
 
    /**
-    * adjList is of type Tuple, but other is type string.
-    * this is fine because equals() is overridden in tuples class
+    * adjList is of type Edge, but other is type string.
+    * this is fine because equals() is overridden in Edges class
     * suppress SuspiciousMethodCalls warning.
     * @param other a string containing the name of an adjacent
     *              vertex
@@ -82,7 +82,7 @@ public class Vertex
       //noinspection SuspiciousMethodCalls
       if (!adjList.contains(other))
       {
-         adjList.add(new Tuple<>(other, weight));
+         adjList.add(new Edge<>(other, weight));
          return true;
       }
       return false;
@@ -95,9 +95,9 @@ public class Vertex
    @SuppressWarnings("unused")
    public void print()
    {
-      for (Tuple tuple : adjList)
+      for (Edge Edge : adjList)
       {
-         System.out.print("    " + tuple.name + " - " + tuple.edgeWeight + "\n");
+         System.out.print("    " + Edge.name + " - " + Edge.edgeWeight + "\n");
       }
    }
 }

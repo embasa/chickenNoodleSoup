@@ -103,9 +103,9 @@ public class Graph
          spacing = 15;
          StringBuilder stringBuilder = new StringBuilder();
          //     for each Vertex w adjacent to v
-         for (Vertex.Tuple<String, Integer> adjacentVertexTuple : vertex.adjList)
+         for (Vertex.Edge<String, Integer> adjacentVertexEdge : vertex.adjList)
          {
-            Vertex adjacentVertex = graph.get(adjacentVertexTuple.name);
+            Vertex adjacentVertex = graph.get(adjacentVertexEdge.name);
             if (--adjacentVertex.indegree == 0)
             {//decrement indegree and if 0 add to q
                q.add(adjacentVertex);
@@ -140,29 +140,33 @@ public class Graph
       System.out.println();
    }
 
+   /**
+    * Had to change the Queue into a LinkedList in order to be
+    * able to print it.
+    */
    @SuppressWarnings("unused")
    public void unweighed()
    {
-      Queue<Vertex> q = new LinkedList<>();
+      LinkedList<Vertex> q = new LinkedList<>();
       Vertex s = graph.get("A");
       s.distance = 0;
-      q.add(s);
+      q.addLast(s);
       String comma = "";
       System.out.print(" Initial State\n");
-      System.out.print("-----------------------------------------\n");
+      System.out.print("---------------------------------\n");
       System.out.printf("%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent");
-      System.out.print("-----------------------------------------\n");
+      System.out.print("---------------------------------\n");
       printGraph();
       System.out.printf("Q     %s\n", comma + s.name);
       while (!q.isEmpty())
       {
-         Vertex vertex = q.remove();
-         System.out.printf("%15s Dequeued\n", vertex.name);
-         System.out.print("-----------------------------------------\n");
+         Vertex vertex = q.removeFirst();
+         System.out.printf(" %s Dequeued\n", vertex.name);
+         System.out.print("---------------------------------\n");
          System.out.printf("%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent");
-         System.out.print("-----------------------------------------\n");
-         StringBuilder stringBuilder2 = new StringBuilder();
-         for (Vertex.Tuple<String, Integer> adjacentVertices : vertex.adjList)
+         System.out.print("---------------------------------\n");
+         //StringBuilder stringBuilder2 = new StringBuilder();
+         for (Vertex.Edge<String, Integer> adjacentVertices : vertex.adjList)
          {
             Vertex adjacentVertex = graph.get(adjacentVertices.name);
             if (adjacentVertex.distance == Integer.MAX_VALUE)
@@ -170,17 +174,30 @@ public class Graph
                adjacentVertex.distance = vertex.distance + 1;
                adjacentVertex.path = vertex;
                q.add(adjacentVertex);
-               stringBuilder2.append(comma);
-               stringBuilder2.append(adjacentVertex.name);
+          //     stringBuilder2.append(comma);
+          //     stringBuilder2.append(adjacentVertex.name);
                comma = ", ";
             }
          }
          comma = "";
          printGraph();
-         System.out.printf("Q     %s\n", stringBuilder2.toString());
+         //System.out.printf("Q     %s\n", stringBuilder2.toString());
+         System.out.printf("Q     %s\n", toStringList(q));
       }
+   }
 
-
+   public String toStringList(List<Vertex> list){
+      if(list.size() == 0){
+         return "empty";
+      }
+      String comma = "";
+      @SuppressWarnings("MismatchedQueryAndUpdateOfStringBuilder") StringBuilder stringBuilder = new StringBuilder();
+      for(Vertex vertex: list){
+         stringBuilder.append(comma);
+         stringBuilder.append(vertex.name);
+         comma = ", ";
+      }
+      return stringBuilder.toString();
    }
 
    public void printGraph()
@@ -191,8 +208,8 @@ public class Graph
          Vertex value = vertex.getValue();
          System.out.printf("%-6s%-10s%-10s%-10s\n",
                value.name,
-               value.known,
-               (value.distance == Integer.MAX_VALUE) ? "Inf" : value.distance,
+               value.known?"T":"F",
+               (value.distance == Integer.MAX_VALUE) ? "\u221E" : value.distance,
                (value.path == null) ? "0" : value.path.name
          );
 
@@ -214,7 +231,7 @@ public class Graph
       System.out.printf("Q     %s\n", comma + s.name);
       while (vertex != null){
          vertex.known = true;
-         for (Vertex.Tuple<String, Integer> adjacentVertices : vertex.adjList){
+         for (Vertex.Edge<String, Integer> adjacentVertices : vertex.adjList){
             Vertex adjacentVertex = graph.get(adjacentVertices.name);
             if(!adjacentVertex.known){
                int distanceToAdjacent = adjacentVertices.edgeWeight;
