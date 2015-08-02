@@ -56,7 +56,7 @@ public class Graph
       {
          System.out.printf("%6s", vertex.getKey());
       }
-      System.out.printf("|%-15s|%-15s\n", "Enqueue", "Dequeue");
+      System.out.printf( "|%-15s|%-15s\n", "Enqueue", "Dequeue" );
    }
 
    public void printCurrentState(int iterationNumber)
@@ -69,7 +69,7 @@ public class Graph
          this.indegreeSum += vertex.getValue().indegree;
       }
    }
-
+   @SuppressWarnings( "unused" )
    public void topSort() throws Exception
    {
       printHeader();
@@ -91,7 +91,7 @@ public class Graph
             comma = ", ";
          }
       }
-      System.out.printf("%" + spacing + "s|", " ");
+      System.out.printf( "%" + spacing + "s|", " " );
       comma = "";
       while (!q.isEmpty())
       {
@@ -131,10 +131,10 @@ public class Graph
          throw new Exception("cycle found!!");
       }
       comma = "";
-      System.out.print("Ordering from s: ");
+      System.out.print( "Ordering from s: " );
       while(!order.isEmpty())
       {
-         System.out.print(comma + order.remove().name);
+         System.out.print( comma + order.remove().name );
          comma = ", ";
       }
       System.out.println();
@@ -152,12 +152,12 @@ public class Graph
       s.distance = 0;
       q.addLast(s);
       String comma = "";
-      System.out.print(" Initial State\n");
+      System.out.print( " Initial State\n" );
       System.out.print("---------------------------------\n");
       System.out.printf("%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent");
       System.out.print("---------------------------------\n");
       printGraph();
-      System.out.printf("Q     %s\n", comma + s.name);
+      System.out.printf( "Q     %s\n", comma + s.name );
       while (!q.isEmpty())
       {
          Vertex vertex = q.removeFirst();
@@ -165,7 +165,6 @@ public class Graph
          System.out.print("---------------------------------\n");
          System.out.printf("%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent");
          System.out.print("---------------------------------\n");
-         //StringBuilder stringBuilder2 = new StringBuilder();
          for (Vertex.Edge<String, Integer> adjacentVertices : vertex.adjList)
          {
             Vertex adjacentVertex = graph.get(adjacentVertices.name);
@@ -174,14 +173,9 @@ public class Graph
                adjacentVertex.distance = vertex.distance + 1;
                adjacentVertex.path = vertex;
                q.add(adjacentVertex);
-          //     stringBuilder2.append(comma);
-          //     stringBuilder2.append(adjacentVertex.name);
-               comma = ", ";
             }
          }
-         comma = "";
          printGraph();
-         //System.out.printf("Q     %s\n", stringBuilder2.toString());
          System.out.printf("Q     %s\n", toStringList(q));
       }
    }
@@ -202,7 +196,19 @@ public class Graph
 
    public void printGraph()
    {
+      Collection<Vertex> collection = graph.values();
+      List<Vertex> sortedGraph = new LinkedList<>( collection );
+      Collections.sort( sortedGraph );
+      for( Vertex value : sortedGraph){
 
+         System.out.printf("%-6s%-10s%-10s%-10s\n",
+                 value.name,
+                 value.known?"T":"F",
+                 (value.distance == Integer.MAX_VALUE) ? "\u221E" : value.distance,
+                 (value.path == null) ? "0" : value.path.name
+         );
+      }
+      /*
       for (Map.Entry<String, Vertex> vertex : graph.entrySet())
       {
          Vertex value = vertex.getValue();
@@ -214,12 +220,13 @@ public class Graph
          );
 
       }
+      */
    }
 
    @SuppressWarnings("unused")
    public void dijkstra()
    {
-      Vertex s = graph.get("A");
+      Vertex s = graph.get( "A" );
       s.distance = 0;
       Vertex vertex = getMinUnkownVertex();
       String comma = "";
@@ -264,7 +271,6 @@ public class Graph
          }
       }
 
-
       if(unknownVertex.isEmpty()){
          return null;
       }
@@ -274,6 +280,88 @@ public class Graph
          if(vertex.distance < minDistance ){
             minVertex = vertex;
             minDistance = vertex.distance;
+         }
+      }
+      return minVertex;
+   }
+
+   /**
+    * makes a minimum spanning tree from the default settings.
+    * This is for all the marbles bitch. distance is shortest
+    * path to a known vertex.
+    */
+   public void primsAlgorithm(){
+      List<Vertex> known = new LinkedList<>( );
+      Vertex vertex = graph.get( "v1" );
+      vertex.distance = 0;
+      System.out.print(" Initial State\n");
+      System.out.print("---------------------------------\n");
+      System.out.printf("%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent");
+      System.out.print("---------------------------------\n");
+      printGraph();
+      while (vertex != null){
+         vertex.known = true;
+         known.add( vertex );
+         for (Vertex.Edge<String, Integer> adjacentVertices : vertex.adjList){
+            Vertex adjacentVertex = graph.get(adjacentVertices.name);
+            if(!adjacentVertex.known){
+               adjacentVertex.distance = min(adjacentVertex.distance,adjacentVertex);
+               //adjacentVertex.path = vertex;
+               //adjacentVertex.known = f;
+               /*
+               int distanceToAdjacent = adjacentVertices.edgeWeight;
+               if(vertex.distance + distanceToAdjacent < adjacentVertex.distance){
+                  adjacentVertex.distance = vertex.distance + distanceToAdjacent;
+                  adjacentVertex.path = vertex;
+               }*/
+            }
+         }
+         System.out.print("---------------------------------\n");
+         System.out.printf( "%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent" );
+         System.out.print( "---------------------------------\n" );
+         vertex = nextMinVertex( known );
+         if(vertex!= null) {
+            System.out.print( "new Vertex: " + vertex.name + "\n" );
+         }
+         printGraph();
+      }
+   }
+
+   /**
+    * takes weight between current node and adjacent node
+    * and the adjacent node. We then test what the minimum
+    * weight of an edge is between the unkown vertex and all
+    * known vertices
+    * @param originalDistance the weight between the vertex adjacent
+    * @param adjacent adjacent vertex to original vertex
+    * @return the smallest weight of unknown edge to a known edge
+    */
+   public int min(int originalDistance, Vertex adjacent){
+      int minimumWeight = originalDistance;
+      for(Vertex.Edge<String,Integer> vertices : adjacent.adjList){
+         Vertex vertex = graph.get( vertices.name );
+         if(vertex.known){
+            if(vertices.edgeWeight < minimumWeight){
+               minimumWeight = vertices.edgeWeight;
+               adjacent.path = vertex;
+            }
+         }
+      }
+      return minimumWeight;
+   }
+
+   public Vertex nextMinVertex(List<Vertex> knowns){
+      Vertex minVertex=null;// graph.get(vertex.adjList.get( 0 ).name);
+      int minDistance = Integer.MAX_VALUE;
+      for( Vertex vertex : knowns) {
+         for ( int i = 0; i < vertex.adjList.size(); i++ ) {
+            Vertex nextVertex = graph.get( vertex.adjList.get( i ).name );
+            if ( ! nextVertex.known ) {
+               if ( nextVertex.distance < minDistance ) {
+                  minVertex = nextVertex;
+                  minDistance = nextVertex.distance;
+               }
+            }
          }
       }
       return minVertex;

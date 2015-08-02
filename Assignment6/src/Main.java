@@ -14,9 +14,10 @@ public class Main
    {
       try
       {
-         getGraph("input.txt").topSort();
-         getGraph("input2.txt").unweighed();
-         getGraph("input2.txt").dijkstra();
+//         getGraph("input.txt").topSort();
+//         getGraph("input2.txt").unweighed();
+//         getGraph("input2.txt").dijkstra();
+         getUnweighedGraph( "input3.txt" ).primsAlgorithm();
       } catch (Exception e){
          e.printStackTrace();
       }
@@ -35,6 +36,21 @@ public class Main
       {
          // my input is formatted like this
          graph.addEdge(scanner.next(), scanner.next(), scanner.nextInt());
+      }
+      return graph;
+   }
+
+   public static Graph getUnweighedGraph(String fileName) throws IOException{
+      Scanner scanner = new Scanner(new File(fileName));
+      Graph graph = new Graph();
+      while (scanner.hasNext())
+      {
+         // my input is formatted like this
+         String vertexOne = scanner.next();
+         String vertexTwo = scanner.next();
+         int weight = scanner.nextInt();
+         graph.addEdge(vertexOne, vertexTwo, weight);
+         graph.addEdge(vertexTwo, vertexOne, weight);
       }
       return graph;
    }

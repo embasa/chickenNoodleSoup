@@ -4,8 +4,14 @@ import java.util.ArrayList;
  * This class is for Graph class to use to populate graphs
  * Created by bruno on 7/26/15.
  */
-public class Vertex
+public class Vertex implements Comparable
 {
+   @Override
+   @SuppressWarnings( "NullableProblems" )
+   public int compareTo( Object o ) {
+      return name.compareTo(((Vertex) o).name );
+   }
+
    /**
     * This class is meant to hold a name and edge to use
     * for our adjacency list. Potentially <Y> should implement
