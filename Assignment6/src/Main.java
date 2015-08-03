@@ -14,10 +14,11 @@ public class Main
    {
       try
       {
-//         getGraph("input.txt").topSort();
-//         getGraph("input2.txt").unweighed();
-//         getGraph("input2.txt").dijkstra();
+         getGraph("input.txt").topSort();
+         getGraph("input2.txt").unweighed();
+         getGraph("input2.txt").dijkstra();
          getUnweighedGraph( "input3.txt" ).primsAlgorithm();
+         getGraph( "input3.txt" ).kruskalsAlgorithm();
       } catch (Exception e){
          e.printStackTrace();
       }
