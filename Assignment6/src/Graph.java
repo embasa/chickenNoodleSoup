@@ -218,13 +218,11 @@ public class Graph
       Vertex s = graph.get("A");
       s.distance = 0;
       Vertex vertex = getMinUnkownVertex();
-      String comma = "";
       System.out.print(" Initial State\n");
       System.out.print("---------------------------------\n");
       System.out.printf("%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent");
       System.out.print("---------------------------------\n");
       printGraph();
-      System.out.printf("Q     %s\n", comma + s.name);
       while (vertex != null){
          vertex.known = true;
          for (Vertex.Edge<String, Integer> adjacentVertices : vertex.adjList){
