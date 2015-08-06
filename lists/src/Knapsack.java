@@ -2,7 +2,8 @@ public class Knapsack
 {
     private static final int N =  4;
     private static final int W = 10;
-    
+
+    //added bullshit
     public static void main(String args[])
     {
         int w[] = {0, 6, 3, 4, 2};
