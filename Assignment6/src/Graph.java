@@ -56,7 +56,7 @@ public class Graph
       {
          System.out.printf("%6s", vertex.getKey());
       }
-      System.out.printf( "|%-15s|%-15s\n", "Enqueue", "Dequeue" );
+      System.out.printf("|%-15s|%-15s\n", "Enqueue", "Dequeue");
    }
 
    public void printCurrentState(int iterationNumber)
@@ -150,14 +150,15 @@ public class Graph
       LinkedList<Vertex> q = new LinkedList<>();
       Vertex s = graph.get("A");
       s.distance = 0;
+      s.known = true;
       q.addLast(s);
       String comma = "";
-      System.out.print( " Initial State\n" );
+      System.out.print(" Initial State\n");
       System.out.print("---------------------------------\n");
       System.out.printf("%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent");
       System.out.print("---------------------------------\n");
       printGraph();
-      System.out.printf( "Q     %s\n", comma + s.name );
+      System.out.printf("Q     %s\n", comma + s.name);
       while (!q.isEmpty())
       {
          Vertex vertex = q.removeFirst();
@@ -172,6 +173,7 @@ public class Graph
             {
                adjacentVertex.distance = vertex.distance + 1;
                adjacentVertex.path = vertex;
+               adjacentVertex.known = true;
                q.add(adjacentVertex);
             }
          }
@@ -208,34 +210,19 @@ public class Graph
                  (value.path == null) ? "0" : value.path.name
          );
       }
-      /*
-      for (Map.Entry<String, Vertex> vertex : graph.entrySet())
-      {
-         Vertex value = vertex.getValue();
-         System.out.printf("%-6s%-10s%-10s%-10s\n",
-               value.name,
-               value.known?"T":"F",
-               (value.distance == Integer.MAX_VALUE) ? "\u221E" : value.distance,
-               (value.path == null) ? "0" : value.path.name
-         );
-
-      }
-      */
    }
 
    @SuppressWarnings("unused")
    public void dijkstra()
    {
-      Vertex s = graph.get( "A" );
+      Vertex s = graph.get("A");
       s.distance = 0;
       Vertex vertex = getMinUnkownVertex();
-      String comma = "";
       System.out.print(" Initial State\n");
       System.out.print("---------------------------------\n");
       System.out.printf("%-6s%-10s%-10s%-10s\n", "v", "known", "dist", "parent");
       System.out.print("---------------------------------\n");
       printGraph();
-      System.out.printf("Q     %s\n", comma + s.name);
       while (vertex != null){
          vertex.known = true;
          for (Vertex.Edge<String, Integer> adjacentVertices : vertex.adjList){
@@ -350,6 +337,12 @@ public class Graph
       return minimumWeight;
    }
 
+   /**
+    * returns a vertex that is connected to the known tree
+    * by the shortest edgeWeight.
+    * @param knowns List of all known vertexes
+    * @return next Vertex to add to known tree
+    */
    public Vertex nextMinVertex(List<Vertex> knowns){
       Vertex minVertex=null;// graph.get(vertex.adjList.get( 0 ).name);
       int minDistance = Integer.MAX_VALUE;
@@ -365,5 +358,38 @@ public class Graph
          }
       }
       return minVertex;
+   }
+
+   public void kruskalsAlgorithm(){
+      Collection<Vertex> collection = graph.values();
+      int numVertices = graph.size();
+      List<Vertex> graphVertices = new LinkedList<>( collection );
+      List<Edge> edges = new ArrayList<>();
+
+      for(Vertex vertex: graphVertices){
+         for( Vertex.Edge<String,Integer> edge: vertex.adjList){
+            edges.add(new Edge(vertex.name,edge.name,edge.edgeWeight));
+         }
+      }
+      /* NOW THE ALGORITHM ACTUALLY BEGINS!!!!!!!!!!! */
+      System.out.println("------------------------------");
+      System.out.printf("%-8s%8s%12s\n", "Edge", "Weight", "Action");
+      System.out.println("------------------------------");
+      DisjSets ds = new DisjSets(numVertices);
+      PriorityQueue<Edge> pq = new PriorityQueue<>(edges);
+      List<Edge> mst = new ArrayList<>();
+      while( mst.size() != numVertices -1){
+         Edge e = pq.poll();
+         Integer uset = ds.find(Integer.parseInt(e.getU().substring(1)) - 1);//index in arraylist requires minus one
+         Integer vset = ds.find(Integer.parseInt(e.getV().substring(1))-1);
+
+         if(uset != vset ){
+            mst.add(e);
+            ds.union(uset, vset);
+            System.out.printf("(%s, %s)%7s%d%6sAccepted\n",e.getU(),e.getV()," ",e.getWeight()," ");
+         }else{
+            System.out.printf("(%s, %s)%7s%d%6sRejected\n",e.getU(),e.getV()," ",e.getWeight()," ");
+         }
+      }
    }
 }
